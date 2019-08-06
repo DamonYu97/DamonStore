@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckin.dao.MemberDao">
+    <insert id="insert" parameterType="com.luckin.dao.entity.MemberEntity">
+        INSERT INTO t_member(name,password)
+        VALUES(#{name},#{password});
+    </insert>
+    <update id="update" parameterType="com.luckin.dao.entity.MemberEntity">
+        UPDATE t_member SET
+        name=#{name},
+        password=#{password},
+        image_url=#{imageUrl},
+        gender=#{gender},
+        phone_number=#{phoneNumber},
+        email=#{email},
+        point=#{point},
+        status=#{status}
+        WHERE id=#{id};
+    </update>
+    <select id="selectByName" parameterType="java.lang.String" resultType="com.luckin.dao.entity.MemberEntity">
+        SELECT * FROM t_member WHERE name=#{name};
+    </select>
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM t_member WHERE name=#{name};
+    </delete>
+</mapper>
