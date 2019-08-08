@@ -4,8 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luckin.dao.AdminDao">
     <!--查询管理员信息-->
-    <select id="findByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Admin">
-        SELECT * FROM t_admin WHERE username = #{username}
+    <select id="findValidAdminByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Admin">
+        SELECT * FROM t_admin WHERE username = #{username} and status = 1;
+    </select>
+
+    <!--查询管理员角色-->
+    <select id="findRoleByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Role">
+        SELECT r.*
+        FROM t_admin a, t_admin_role ar, t_role r
+        WHERE a.id = ar.admin_id and ar.role_id = r.id and a.username = #{username};
     </select>
 
     <!--查询管理员的权限-->
@@ -13,6 +20,38 @@
         SELECT p.*
         FROM t_admin a, t_admin_role ar, t_role_permission rp, t_permission p
         WHERE a.id = ar.admin_id and ar.role_id = rp.role_id and rp.permission_id = p.id
-        and a.username = #{username}
+        and a.username = #{username};
+    </select>
+
+    <!--插入管理员信息-->
+    <insert id="insert" parameterType="com.luckin.dao.entity.Admin">
+        INSERT INTO t_admin(username,real_name,password,phone_number)
+        VALUES(#{username},#{realName},#{password},#{phoneNumber});
+    </insert>
+
+    <!--绑定管理员角色-->
+    <insert id="bindRole">
+        INSERT INTO t_admin_role(admin_id, role_id)
+        VALUES(#{adminID}, #{roleID});
+    </insert>
+
+    <!--更新管理员信息-->
+    <update id="update" parameterType="com.luckin.dao.entity.Admin">
+        UPDATE t_admin SET
+        username=#{username},
+        password=#{password},
+        phone_number=#{phoneNumber},
+        status=#{status}
+        WHERE id=#{id};
+    </update>
+    
+    <!--查找所有管理员信息-->
+    <select id="findAllAdmin" resultType="com.luckin.dao.entity.Admin">
+        SELECT * FROM t_admin;
+    </select>
+
+    <!--查找所有角色-->
+    <select id="findAllRole" resultType="com.luckin.dao.entity.Role">
+        SELECT * FROM t_role;
     </select>
 </mapper>

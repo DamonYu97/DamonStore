@@ -22,16 +22,23 @@
         <p id="home"><a href="${PATH}/admin/index">DamonStore</a></p>
         <h1 id="hello">Hello</h1>
         <h5 class="text-center" style="margin-bottom: 50px;">Sign in to the management system of Damon Store</h5>
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <div class="form-group">
-                <input type="text" class="form-control login-input center-block" name="username" id="inputUsername" placeholder="Username" required data-bv-notempty="true">
+        <form action="${PATH}/login" method="post">
+            <div class="center-block" style="width: 350px;">
+                <div class="form-group">
+                    <input type="text" class="form-control login-input center-block" name="username" id="inputUsername" placeholder="Username" required data-bv-notempty="true">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control login-input center-block" name="password" id="inputPassword" placeholder="Password" required data-bv-notempty="true">
+                </div>
+                <c:if test="${not empty param.error}">
+                    <p class="text-danger" style="margin-left: 6px">Wrong username or password!</p>
+                </c:if>
+                <div class="checkbox" style="margin-left: 6px">
+                    <label>
+                        <input type="checkbox" name="remember-me" value="true"> Remember Me
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control login-input center-block" name="password" id="inputPassword" placeholder="Password" required data-bv-notempty="true">
-            </div>
-            <c:if test="${not empty param.error}">
-                <p class="text-danger text-center">Wrong username or password!</p>
-            </c:if>
             <button type="submit" class="btn btn-primary long-button center-block">Sign in</button>
         </form>
         <h5 class="text-center" style="font-weight: normal;"><a href="" style="text-decoration: none;">Reset your password</a></h5>

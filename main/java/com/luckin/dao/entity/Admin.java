@@ -59,7 +59,7 @@ public class Admin implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return (status == 1)?true:false;
     }
 
     public BigInteger getId() {

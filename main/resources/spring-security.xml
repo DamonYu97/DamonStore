@@ -12,6 +12,8 @@
     <http pattern="/static/**" security="none"/>
     <http>
         <form-login login-page="/admin/adminLogin" login-processing-url="/login" authentication-failure-url="/admin/adminLogin?error=true" authentication-success-forward-url="/admin/index"/>
+        <logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/admin/adminLogin"></logout>
+        <remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600"></remember-me>
         <csrf disabled="true"/>
         <!-- 配置拦截的请求地址，任何请求地址都必须有ROLE_USER的权限 -->
         <intercept-url pattern="/admin/adminLogin" access="permitAll()"/>
@@ -26,6 +28,11 @@
 
     <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
+
+    <beans:bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <beans:property name="dataSource" ref="dataSource"></beans:property>
+        <beans:property name="createTableOnStartup" value="true"></beans:property>
     </beans:bean>
 
 </beans:beans>

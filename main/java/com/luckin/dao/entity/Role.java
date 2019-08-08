@@ -7,16 +7,16 @@ import java.math.BigInteger;
  * @since 2019/08/01 10:10
  */
 
-class Role {
-    private BigInteger id;
+public class Role {
+    private int id;
     private String name;
     private String description;
 
-    public BigInteger getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(int id) {
         this.id = id;
     }
 
