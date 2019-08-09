@@ -83,7 +83,7 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="${PATH}/admin/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
@@ -124,7 +124,7 @@
                     </security:authorize>
                     <security:authorize access="hasAuthority('ROLE_CHECK_PRODUCT')">
                         <li>
-                            <a href="${PATH}/admin/index"><i class="fa fa-gift fa-fw"></i> Product Management</a>
+                            <a href="${PATH}/admin/productManage"><i class="fa fa-gift fa-fw"></i> Product Management</a>
                         </li>
                     </security:authorize>
                     <security:authorize access="hasAuthority('ROLE_CHECK_ORDER')">

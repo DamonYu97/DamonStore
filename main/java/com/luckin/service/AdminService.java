@@ -22,6 +22,13 @@ public interface AdminService extends UserDetailsService{
     Integer createAdmin(Admin admin);
 
     /**
+     * 修改管理员状态为失效
+     * @param username
+     * @return
+     */
+    Integer updateStatusToInvalid(String username);
+
+    /**
      * 绑定管理员角色
      * @param adminID, roleID
      * @return

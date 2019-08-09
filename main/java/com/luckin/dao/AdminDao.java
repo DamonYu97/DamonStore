@@ -3,6 +3,7 @@ package com.luckin.dao;
 import com.luckin.dao.entity.Admin;
 import com.luckin.dao.entity.Role;
 import com.luckin.dao.entity.Permission;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -36,12 +37,19 @@ public interface AdminDao {
     Integer insert(Admin admin);
 
     /**
+     * 修改管理员状态为失效
+     * @param username
+     * @return
+     */
+    Integer updateStatusToInvalid(String username);
+
+    /**
      * 绑定管理员角色
      * @param adminID
      * @param roleID
      * @return
      */
-    Integer bindRole(BigInteger adminID, int roleID);
+    Integer bindRole(@Param("adminID") BigInteger adminID, @Param("roleID") int roleID);
 
     /**
      * 更新管理员信息

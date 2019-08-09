@@ -33,11 +33,14 @@ public class AdminController {
     private final String USERNAME = "username";
     private final String REAL_NAME = "realName";
     private final String PASSWORD = "password";
+    private final String NEWPASSWORD = "newPassword";
     private final String PHONE_NUMBER ="phoneNumber";
     private final String ADMIN = "admin";
     private final String ROLE = "role";
     private final String NAME = "name";
     private final String IS_VALID = "valid";
+    private final String TYPE = "type";
+    private final String USERMANAGE = "userManage";
 
     @Autowired
     private AdminService adminService;
@@ -63,6 +66,14 @@ public class AdminController {
             }
         }
         return "admin/profile";
+    }
+
+    /**
+     * 商品管理页面
+     */
+    @RequestMapping("/productManage")
+    public String productManage() {
+        return "admin/productManage";
     }
 
     /**
@@ -124,14 +135,20 @@ public class AdminController {
     public String updatePassword(HttpServletRequest request) throws IOException {
         //加密新密码
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(request.getParameter("newPassword"));
+        String encodedPassword = passwordEncoder.encode(request.getParameter(NEWPASSWORD));
         //当前用户名
-        String name = request.getParameter(NAME);
-        Admin admin = adminService.findValidAdminByUsername(name);
+        String username = request.getParameter(USERNAME);
+        logger.info("update password of :" + username);
+        Admin admin = adminService.findValidAdminByUsername(username);
         admin.setPassword(encodedPassword);
         adminService.updateAdmin(admin);
-        //修改成功后登出
-        return "redirect:/logout.do";
+        //根据操作界面的类型确定返回位置
+        String type = request.getParameter(TYPE);
+        if (USERMANAGE.equals(type)) {
+            return "redirect:/admin/userManage";
+        } else {
+            return "redirect:/logout.do";
+        }
     }
 
     /**
@@ -162,7 +179,15 @@ public class AdminController {
      * 用户管理
      */
     @RequestMapping("/userManage")
-    public String userManage() {
+    public String userManage(Model model) {
+        //获取当前用户信息
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal != null) {
+            if (principal instanceof Admin) {
+                Admin admin = adminService.findValidAdminByUsername(((Admin) principal).getUsername());
+                model.addAttribute(ADMIN,admin);
+            }
+        }
         return "admin/userManage";
     }
 
@@ -176,9 +201,9 @@ public class AdminController {
         for (Admin admin: admins) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(ADMIN, JSONObject.toJSON(admin));
-            //获取管理员角色信息
-            Role role = adminService.findRoleByUsername(admin.getUsername());
-            jsonObject.put(ROLE, JSONObject.toJSON(role));
+            //获取管理员角色名称
+            String roleName = adminService.findRoleByUsername(admin.getUsername()).getName();
+            jsonObject.put(ROLE, JSONObject.toJSON(roleName));
             jsonObjects.add(jsonObject);
         }
         logger.info("Admin_Role: "+ jsonObjects.toString());
@@ -208,12 +233,15 @@ public class AdminController {
         String password = request.getParameter(PASSWORD);
         String realName = request.getParameter(REAL_NAME);
         String phoneNumber = request.getParameter(PHONE_NUMBER);
+        //加密新密码
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
         //创建新的管理员
         Admin admin = new Admin();
         admin.setUsername(username);
         admin.setPhoneNumber(phoneNumber);
         admin.setRealName(realName);
-        admin.setPassword(password);
+        admin.setPassword(encodedPassword);
         adminService.createAdmin(admin);
         //绑定管理员角色
         //1.获取新的管理员的id
@@ -223,6 +251,18 @@ public class AdminController {
         int roleID = Integer.parseInt(request.getParameter(ROLE));
         logger.info("roleID: " + roleID);
         adminService.bindRole(adminID, roleID);
+        //返回用户管理界面
+        return "redirect:/admin/userManage";
+    }
+
+    /**
+     * 删除管理员（状态设为0，即无效）
+     */
+    @RequestMapping(value = "/deleteAdmin", method = RequestMethod.GET)
+    public String deleteAdmin(HttpServletRequest request) throws IOException {
+        String username = request.getParameter(USERNAME);
+        logger.info("All Roles: "+ username);
+        adminService.updateStatusToInvalid(username);
         //返回用户管理界面
         return "redirect:/admin/userManage";
     }

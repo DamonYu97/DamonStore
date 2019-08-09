@@ -48,6 +48,12 @@ public class AdminDetailsServiceImpl implements AdminService {
     }
 
     @Override
+    public Integer updateStatusToInvalid(String username) {
+        return adminDao.updateStatusToInvalid(username);
+    }
+
+
+    @Override
     public Integer bindRole(BigInteger adminID, int roleID) {
         return adminDao.bindRole(adminID,roleID);
     }

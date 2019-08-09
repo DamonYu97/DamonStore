@@ -29,6 +29,12 @@
         VALUES(#{username},#{realName},#{password},#{phoneNumber});
     </insert>
 
+    <!--删除管理员信息-->
+    <update id="updateStatusToInvalid" parameterType="java.lang.String">
+        UPDATE t_admin SET status=0
+        WHERE username = #{username};
+    </update>
+
     <!--绑定管理员角色-->
     <insert id="bindRole">
         INSERT INTO t_admin_role(admin_id, role_id)

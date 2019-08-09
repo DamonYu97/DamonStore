@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Damon Store management system</title>
+    <title>Damon Store management system - user management</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="${PATH}/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,6 @@
 <body>
 
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -92,7 +91,7 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="${PATH}/admin/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
@@ -133,7 +132,7 @@
                     </security:authorize>
                     <security:authorize access="hasAuthority('ROLE_CHECK_PRODUCT')">
                         <li>
-                            <a href="${PATH}/admin/index"><i class="fa fa-gift fa-fw"></i> Product Management</a>
+                            <a href="${PATH}/admin/productManage"><i class="fa fa-gift fa-fw"></i> Product Management</a>
                         </li>
                     </security:authorize>
                     <security:authorize access="hasAuthority('ROLE_CHECK_ORDER')">
@@ -237,6 +236,47 @@
                             </tr>
                             </thead>
                         </table>
+                        <div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="resetModalLabel">Reset password of this account</h4>
+                                    </div>
+                                    <form id="resetForm" action="${PATH}/admin/updatePassword?type=userManage" method="post">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="inputNewPassword">New Password</label>
+                                                <input type="text" class="form-control" name="newPassword" id="inputNewPassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" id="resetUsername" name="username"/>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                       <h4 class="modal-title" id="deleteModalLabel">Warning! Delete this account?</h4>
+                                   </div>
+                                  <div class="modal-body" id="warningLabel">
+
+                                  </div>
+                                   <div class="modal-footer">
+                                       <input type="hidden" id="deleteURL"/>
+                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                       <button type="button" class="btn btn-primary" onclick="urlDelete()">Delete</button>
+                                   </div>
+                                 </div>
+                           </div>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -291,7 +331,7 @@
                 {   "data": "admin.username" },
                 {   "data": "admin.realName" },
                 {   "data": "admin.phoneNumber" },
-                {   "data": "role.name" },
+                {   "data": "role" },
                 {   "data": "admin.status",
                     "render": function (data, type, row, meta) {
                         if (data == 1){
@@ -303,10 +343,20 @@
                 },
                 {
                     "data": null,
+                    "searchable": false,
                     "render": function (data, type, row, meta) {
-                        var editButton = "<button type=\"button\" class=\"btn btn-warning\" data-toggle=\"modal\" data-target=\"#editModal\">Edit</button>";
-                        var deleteButton = " <button type=\"button\" class=\"btn btn-danger\">Delete</button>";
-                        return editButton+deleteButton;
+                        var disable = "";
+                        var username = row.admin.username;
+                        var status = row.admin.status;
+                        console.log(username);
+                        if (username == "${admin.username}" || status == 0) {
+                            disable = "disabled=\"disabled\"";
+                        }
+                        var resetButton = " <button type=\"button\" "+disable+" class=\"btn btn-warning\" \n" +
+                            " data-toggle=\"modal\" data-target=\"#resetModal\" data-username="+username+">Reset Password</button>";
+                        var deleteButton = " <button type=\"button\" "+disable+" class=\"btn btn-danger\" \n" +
+                            " data-toggle=\"modal\" data-target=\"#deleteModal\" data-username="+username+">Delete</button>";
+                        return resetButton+deleteButton;
                     }
                 }
             ]
@@ -377,6 +427,29 @@
                 }
             }
         });
+    });
+</script>
+
+<script type="text/javascript">
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var username = button.data('username');
+        console.log('delete username: '+username);
+        var modal = $(this);
+        modal.find('.modal-body').text('Are you sure you want to delete user ' + username + '?');
+        $('#deleteURL').val('${PATH}/admin/deleteAdmin?username='+username);
+    });
+    function urlDelete() {
+        var url=$.trim($("#deleteURL").val());
+        window.location.href=url;
+    };
+    $('#resetModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var username = button.data('username');
+        console.log('reset password username: '+username);
+        var modal = $(this);
+        modal.find('.modal-title').text('Reset password of ' + username);
+        $('#resetUsername').val(username);
     });
 </script>
 </body>
