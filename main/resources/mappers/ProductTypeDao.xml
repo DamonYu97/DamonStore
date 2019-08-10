@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckin.dao.ProductTypeDao">
+    <!--插入商品类型信息-->
+    <insert id="insert" parameterType="com.luckin.dao.entity.ProductType">
+        INSERT INTO t_product_type(name,parent_id,is_end)
+        VALUES(#{name},#{parentId},#{isEnd});
+    </insert>
+    <!--根据类型ID查询商品类型信息-->
+    <select id="findProductTypeByID" resultType="com.luckin.dao.entity.ProductType">
+        SELECT * FROM t_product_type WHERE id=#{id};
+    </select>
+    <!--更新商品类型信息-->
+    <update id="update" parameterType="com.luckin.dao.entity.ProductType">
+        UPDATE t_product_type SET
+        name=#{name},
+        parent_id=#{parentId},
+        is_end=#{isEnd}
+        WHERE id=#{id};
+    </update>
+</mapper>
