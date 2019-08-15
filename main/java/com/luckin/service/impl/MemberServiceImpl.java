@@ -1,11 +1,12 @@
 package com.luckin.service.impl;
 
 import com.luckin.dao.MemberDao;
-import com.luckin.dao.entity.MemberEntity;
+import com.luckin.dao.entity.Member;
 import com.luckin.service.MemberService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -13,13 +14,13 @@ public class MemberServiceImpl implements MemberService {
     private MemberDao memberDao;
 
     @Override
-    public Integer createMember(MemberEntity memberEntity) {
-        return memberDao.insert(memberEntity);
+    public Integer createMember(Member member) {
+        return memberDao.insert(member);
     }
 
     @Override
-    public Integer updateMember(MemberEntity memberEntity) {
-        return memberDao.update(memberEntity);
+    public Integer updateMember(Member member) {
+        return memberDao.update(member);
     }
 
     @Override
@@ -28,14 +29,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberEntity getUserByName(String name) {
-        return memberDao.selectByName(name);
+    public Member getUserByName(String name) {
+        return memberDao.findMemberByName(name);
+    }
+
+    @Override
+    public List<Member> findAllMember() {
+        return memberDao.findAllMember();
     }
 
     @Override
     public Boolean login(String name, String password) {
-        MemberEntity memberEntity = memberDao.selectByName(name);
-        if (memberEntity != null && memberEntity.getName().equals(name) && memberEntity.getPassword().equals(password)){
+        Member member = memberDao.findMemberByName(name);
+        if (member != null && member.getName().equals(name) && member.getPassword().equals(password)){
             return true;
         }
         return false;
@@ -43,11 +49,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Boolean register(String name, String password) {
-        if (memberDao.selectByName(name) == null) {
-            MemberEntity memberEntity = new MemberEntity();
-            memberEntity.setName(name);
-            memberEntity.setPassword(password);
-            if (memberDao.insert(memberEntity) != null){
+        if (memberDao.findMemberByName(name) == null) {
+            Member member = new Member();
+            member.setName(name);
+            member.setPassword(password);
+            if (memberDao.insert(member) != null){
                 return true;
             }
         }

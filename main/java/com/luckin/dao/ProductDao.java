@@ -41,13 +41,6 @@ public interface ProductDao {
     Integer update(Product product);
 
     /**
-     * 更改商品状态为失效
-     * @param id
-     * @return
-     */
-    Integer updateStatusToInvalid(BigInteger id);
-
-    /**
      * 通过商品ID查看商品图片
      * @param id
      * @return

@@ -17,6 +17,7 @@
 
     <!-- Custom CSS -->
     <link href="${PATH}/static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="${PATH}/static/css/main.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="${PATH}/static/vendor/morrisjs/morris.css" rel="stylesheet">
@@ -46,116 +47,7 @@
 
 <div id="wrapper">
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="${PATH}/admin/index">Damon Store Management System</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-messages">
-                </ul>
-                <!-- /.dropdown-messages -->
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-tasks">
-                </ul>
-                <!-- /.dropdown-tasks -->
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                </ul>
-                <!-- /.dropdown-alerts -->
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="${PATH}/admin/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="${PATH}/logout.do"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </li>
-                    <li>
-                        <a href="${PATH}/admin/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="${PATH}/admin/profile"><i class="fa fa-user fa-fw"></i> Profile</a>
-                    </li>
-                    <security:authorize access="hasAuthority('ROLE_CHECK_ADMIN')">
-                        <li>
-                            <a href="${PATH}/admin/userManage"><i class="fa fa-adn fa-fw"></i> User Management</a>
-                        </li>
-                    </security:authorize>
-                    <security:authorize access="hasAuthority('ROLE_CHECK_PRODUCT')">
-                        <li>
-                            <a href="${PATH}/admin/productManage"><i class="fa fa-gift fa-fw"></i> Product Management</a>
-                        </li>
-                    </security:authorize>
-                    <security:authorize access="hasAuthority('ROLE_CHECK_ORDER')">
-                        <li>
-                            <a href="${PATH}/admin/index"><i class="fa fa-truck fa-fw"></i> Order Management</a>
-                        </li>
-                    </security:authorize>
-                    <security:authorize access="hasAuthority('ROLE_CHECK_MEMBER')">
-                        <li>
-                            <a href="${PATH}/admin/index"><i class="fa fa-users fa-fw"></i> Member Information</a>
-                        </li>
-                    </security:authorize>
-                    <security:authorize access="hasAuthority('ROLE_CHECK_POINT')">
-                        <li>
-                            <a href="${PATH}/admin/index"><i class="fa fa-euro fa-fw"></i> Point Information</a>
-                        </li>
-                    </security:authorize>
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-    </nav>
+    <%@include file="navigation.jsp"%>
 
     <div id="page-wrapper">
         <div class="row">
@@ -179,45 +71,50 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="phoneModalLabel">Create a new product</h4>
+                                        <h4 class="modal-title" id="addModalLabel">Create a new product</h4>
                                     </div>
-                                    <form class="form-horizontal" id="addForm" action="${PATH}/admin/createAdmin" method="post">
+                                    <form class="form-horizontal" id="addForm" action="${PATH}/admin/product/" method="post">
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="inputUsername" class="col-sm-4 control-label">Username</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Username">
+                                                <label for="inputName" class="col-sm-3 control-label">Product name</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputRealName" class="col-sm-4 control-label">Real Name</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control" name="realName" id="inputRealName" placeholder="Real name">
+                                                <label for="inputBrandName" class="col-sm-3 control-label">Brand name</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" name="brandName" id="inputBrandName" placeholder="Brand">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputPassword" class="col-sm-4 control-label">Password</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control" name="password" id="inputPassword" placeholder="Password">
+                                                <label for="inputDescription" class="col-sm-3 control-label">Description</label>
+                                                <div class="col-sm-7">
+                                                    <textarea class="form-control" maxlength="500" name="description" id="inputDescription" placeholder="write description no more than 500 letters."></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputPhone" class="col-sm-4 control-label">Phone Number</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control" name="phoneNumber" id="inputPhone" placeholder="Phone">
+                                                <label for="inputStock" class="col-sm-3 control-label">Stock</label>
+                                                <div class="col-sm-7">
+                                                    <input type="number" min="1" class="form-control" name="stock" id="inputStock" placeholder="Stock">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label">Role</label>
-                                                <div class="col-sm-6">
-                                                    <select id="selectRole" name="role" class="form-control">
-                                                    </select>
+                                                <label for="inputPrice" class="col-sm-3 control-label">Price</label>
+                                                <div class="col-sm-7">
+                                                    <input type="number"  min="0" step="0.01" class="form-control" name="price" id="inputPrice" placeholder="Price">
+                                                </div>
+                                            </div>
+                                            <div class="form-group hidden">
+                                                <label for="inputPoint" class="col-sm-3 control-label">Point</label>
+                                                <div class="col-sm-7">
+                                                    <input type="number"  min="0" class="form-control" name="point" id="inputPoint" placeholder="Point">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Create</button>
+                                            <button type="submit" class="btn btn-primary">Add</button>
                                         </div>
                                     </form>
                                 </div>
@@ -226,6 +123,7 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="product">
                             <thead>
                             <tr>
+                                <th></th>
                                 <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
@@ -237,24 +135,42 @@
                             </tr>
                             </thead>
                         </table>
-                        <div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetModalLabel">
+                        <div class="modal fade" id="originModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img id="originImg" class="img-responsive center-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="resetModalLabel">Reset password of this account</h4>
+                                        <h4 class="modal-title" id="editModalLabel">Update this product</h4>
                                     </div>
-                                    <form id="resetForm" action="${PATH}/admin/updatePassword?type=userManage" method="post">
+                                    <form class="form-horizontal" id="resetForm" action="${PATH}/admin/product/updateProduct" method="post">
                                         <div class="modal-body">
+                                            <input type="hidden" name="id" id="editProductID"/>
                                             <div class="form-group">
-                                                <label for="inputNewPassword">New Password</label>
-                                                <input type="text" class="form-control" name="newPassword" id="inputNewPassword" placeholder="Password">
+                                                <label  class="col-md-3" for="inputEditStock">Stock</label>
+                                                <div class="col-md-7">
+                                                    <input type="number" min="1" class="form-control" name="stock" id="inputEditStock">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="col-md-3" for="inputEditStock">Price</label>
+                                                <div class="col-md-7">
+                                                    <input type="number" min="0" step="0.01" class="form-control" name="price" id="inputEditPrice">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <input type="hidden" id="resetUsername" name="username"/>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Reset</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -265,10 +181,10 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="deleteModalLabel">Warning! Delete this account?</h4>
+                                        <h4 class="modal-title" id="deleteModalLabel">Warning! Delete this product?</h4>
                                     </div>
-                                    <div class="modal-body" id="warningLabel">
-
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this product?
                                     </div>
                                     <div class="modal-footer">
                                         <input type="hidden" id="deleteURL"/>
@@ -316,7 +232,7 @@
 <!-- Bootstrap table javascript -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#product').DataTable({
+        var table = $('#product').DataTable({
             "order": [[0, "asc"]],
             "processing": true,
             "serverSide": false,
@@ -328,14 +244,25 @@
                 "dataSrc": ""
             },
             "columns": [
+                {
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
+                    select:"single",
+                    "defaultContent": '',
+                    "render": function () {
+                        return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+                    },
+                    width:"15px"
+                },
                 {   "data": "product.id" },
                 {   "data": "mainImageUrl",
                     "render": function (data, type, row, meta) {
-                    var mainUrl = "http://47.106.104.159:8081/thumbnails/product/"+data;
-                        var img = "<a href=\"#\" class=\"thumbnail\">\n" +
-                            "      <img height='100px' src="+mainUrl+" alt="+mainUrl+">\n" +
-                            "    </a>"
-                        return img;
+                    var mainUrl = "http://47.106.104.159:8081/images/product/"+data;
+                    var img = "<a href=\"#originModal\" role='button' class=\"thumbnail\" data-toggle=\"modal\" data-filename="+data+">\n" +
+                        "      <img height='50px' width='50px' src="+mainUrl+" alt="+mainUrl+">\n" +
+                        "    </a>"
+                    return img;
                     }
                 },
                 {   "data": "product.name" },
@@ -355,15 +282,123 @@
                     "data": null,
                     "searchable": false,
                     "render": function (data, type, row, meta) {
-                        var resetButton = " <button type=\"button\" class=\"btn btn-warning\" \n" +
-                            " data-toggle=\"modal\" data-target=\"#resetModal\" >Reset Password</button>";
-                        var deleteButton = " <button type=\"button\" class=\"btn btn-danger\" \n" +
-                            " data-toggle=\"modal\" data-target=\"#deleteModal\">Delete</button>";
-                        return resetButton+deleteButton;
-                    }
+                        var productID = row.product.id;
+                        const productName = row.product.name;
+                        const productStock = row.product.stock;
+                        const productPrice = row.product.price;
+                        var disable = "";
+                        var status = row.product.status;
+                        if (status == 0) {
+                            disable = "disabled=\"disabled\"";
+                        }
+                        var editButton = " <button type=\"button\" "+disable+" class=\"btn btn-warning\" \n" +
+                            " data-toggle=\"modal\" data-target=\"#editModal\" data-productstock=\"" +productStock + "\" data-productprice=\"" +productPrice +"\" data-productid="+productID+">Edit</button>";
+                        var deleteButton = " <button type=\"button\" "+disable+" class=\"btn btn-danger\" \n" +
+                            " data-toggle=\"modal\" data-target=\"#deleteModal\" data-productid="+productID+">Delete</button>";
+                        return editButton+deleteButton;
+                    },
+                    width: "115px"
                 }
             ]
         });
+        // Add event listener for opening and closing details
+        $('#product tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var tdi = tr.find("i.fa");
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+                tdi.first().removeClass('fa-minus-square');
+                tdi.first().addClass('fa-plus-square');
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+                tdi.first().removeClass('fa-plus-square');
+                tdi.first().addClass('fa-minus-square');
+            }
+        });
+
+        table.on("user-select", function (e, dt, type, cell, originalEvent) {
+            if ($(cell.node()).hasClass("details-control")) {
+                e.preventDefault();
+            }
+        });
+    });
+    function format(d){
+        console.log(d.imageUrls);
+        // `d` is the original data object for the row
+        var imagesRow = '';
+        for (var i =0; i < d.imageUrls.length; i++) {
+            var filename = d.imageUrls[i].url;
+            var thumbnailUrl = "http://47.106.104.159:8081/images/product/" + filename;
+            imagesRow = imagesRow + "<div class='col-md-2'><a href=\"#originModal\" role='button' class=\"thumbnail\" data-toggle=\"modal\" data-filename="+filename+">\n" +
+                "      <img height='50px' width='50px' src="+thumbnailUrl+" alt="+thumbnailUrl+">\n" +
+                "    </a></div>";
+        }
+        console.log('modify:'+d.product.modifyTime);
+        var modifyInfo = '';
+        if ( typeof (d.product.modifyTime) != "undefined") {
+            modifyInfo =  '<tr>' +
+                '<td><span class="text-muted">Modify info:</span></td>' +
+                '<td> Modified at <span class="text-info">' + d.product.modifyTime +
+                '</span> by admin of ID: <span class="text-info">' + d.product.modifyAdminId + '</span></td>' +
+                '</tr>';
+        }
+        console.log("imageRow "+imagesRow);
+        var detail = '<div class="row">' + imagesRow + '</div>' +
+            '<table class="table table-hover">' +
+            '<tr>' +
+            '<td><span class="text-muted">Brand name:</span></td>' +
+            '<td>' + d.product.brandName + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td><span class="text-muted">Description:</span></td>' +
+            '<td>' + d.product.description + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td><span class="text-muted">Create info:</span></td>' +
+            '<td> Created at <span class="text-info">' + d.product.createTime +
+            '</span> by admin of ID: <span class="text-info">' + d.product.createAdminId + '</span></td>' +
+            '</tr>' + modifyInfo +
+            '</table>';
+        return detail;
+    }
+</script>
+
+<script type="text/javascript">
+    $('#originModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var imageUrl = "http://47.106.104.159:8081/images/product/"+button.data('filename');
+        console.log('image Url: '+imageUrl);
+        var modal = $(this);
+        $('#originImg').attr("src",imageUrl);
+    });
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var productID = button.data('productid');
+        console.log('delete product id: '+productID);
+        var modal = $(this);
+        $('#deleteURL').val('${PATH}/admin/product/deleteProduct?id='+productID);
+    });
+    function urlDelete() {
+        var url=$.trim($("#deleteURL").val());
+        window.location.href=url;
+    };
+    $('#editModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        const productID = button.data('productid');
+        const productStock = button.data('productstock');
+        const productPrice = button.data('productprice');
+        console.log('edit product stock: '+productStock);
+        console.log('edit product price: '+productPrice);
+        $('#inputEditStock').attr("value",productStock);
+        $('#inputEditPrice').attr("value",productPrice);
+        $('#editProductID').attr("value",productID);
     });
 </script>
 </body>

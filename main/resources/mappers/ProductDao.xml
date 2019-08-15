@@ -12,11 +12,15 @@
     <select id="findAllProduct" resultType="com.luckin.dao.entity.Product">
         SELECT * FROM t_product;
     </select>
+    <!--通过ID查询商品信息-->
+    <select id="findProductByID" resultType="com.luckin.dao.entity.Product">
+        SELECT * FROM t_product WHERE id=#{id};
+    </select>
     <!--更新商品信息-->
     <update id="update" parameterType="com.luckin.dao.entity.Product">
         UPDATE t_product SET
         name=#{name},
-        type_id=#{typeID},
+        type_id=#{typeId},
         description=#{description},
         brand_name=#{brandName},
         stock=#{stock},
@@ -26,7 +30,7 @@
         create_admin_id=#{createAdminId},
         modify_time=#{modifyTime},
         modify_admin_id=#{modifyAdminId},
-        status=#{status},
+        status=#{status}
         WHERE id=#{id};
     </update>
     <!--通过商品ID查看商品图片信息-->

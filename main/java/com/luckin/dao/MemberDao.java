@@ -1,15 +1,17 @@
 package com.luckin.dao;
 
-import com.luckin.dao.entity.MemberEntity;
+import com.luckin.dao.entity.Member;
+
+import java.util.List;
 
 public interface MemberDao {
     /**
      * 插入会员记录
      *
-     * @param memberEntity
+     * @param member
      * @return
      */
-    Integer insert(MemberEntity memberEntity);
+    Integer insert(Member member);
 
     /**
      * 删除会员记录
@@ -22,10 +24,10 @@ public interface MemberDao {
     /**
      * 更新会员记录
      *
-     * @param memberEntity
+     * @param member
      * @return
      */
-    Integer update(MemberEntity memberEntity);
+    Integer update(Member member);
 
     /**
      * 根据会员名名查找会员
@@ -33,5 +35,11 @@ public interface MemberDao {
      * @param name
      * @return
      */
-    MemberEntity selectByName(String name);
+    Member findMemberByName(String name);
+
+    /**
+     * 查找所有会员信息
+     * @return
+     */
+    List<Member> findAllMember();
 }

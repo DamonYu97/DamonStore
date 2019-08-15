@@ -1,4 +1,4 @@
-package com.luckin.controller;
+package com.luckin.controller.member;
 
 import com.alibaba.fastjson.JSONObject;
 import com.luckin.service.MemberService;

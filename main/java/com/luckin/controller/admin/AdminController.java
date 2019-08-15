@@ -1,4 +1,4 @@
-package com.luckin.controller;
+package com.luckin.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.luckin.dao.entity.Admin;
@@ -33,14 +33,14 @@ public class AdminController {
     private final String USERNAME = "username";
     private final String REAL_NAME = "realName";
     private final String PASSWORD = "password";
-    private final String NEWPASSWORD = "newPassword";
+    private final String NEW_PASSWORD = "newPassword";
     private final String PHONE_NUMBER ="phoneNumber";
     private final String ADMIN = "admin";
     private final String ROLE = "role";
     private final String NAME = "name";
     private final String IS_VALID = "valid";
     private final String TYPE = "type";
-    private final String USERMANAGE = "userManage";
+    private final String USER_MANAGE = "userManage";
 
     @Autowired
     private AdminService adminService;
@@ -74,6 +74,30 @@ public class AdminController {
     @RequestMapping("/productManage")
     public String productManage() {
         return "admin/productManage";
+    }
+
+    /**
+     * 会员信息管理页面
+     */
+    @RequestMapping("/memberManage")
+    public String memberManage() {
+        return "admin/memberManage";
+    }
+
+    /**
+     * 订单管理页面
+     */
+    @RequestMapping("/orderManage")
+    public String orderManage() {
+        return "admin/orderManage";
+    }
+
+    /**
+     * 积分管理页面
+     */
+    @RequestMapping("/pointManage")
+    public String pointManage() {
+        return "admin/pointManage";
     }
 
     /**
@@ -135,7 +159,7 @@ public class AdminController {
     public String updatePassword(HttpServletRequest request) throws IOException {
         //加密新密码
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(request.getParameter(NEWPASSWORD));
+        String encodedPassword = passwordEncoder.encode(request.getParameter(NEW_PASSWORD));
         //当前用户名
         String username = request.getParameter(USERNAME);
         logger.info("update password of :" + username);
@@ -144,7 +168,7 @@ public class AdminController {
         adminService.updateAdmin(admin);
         //根据操作界面的类型确定返回位置
         String type = request.getParameter(TYPE);
-        if (USERMANAGE.equals(type)) {
+        if (USER_MANAGE.equals(type)) {
             return "redirect:/admin/userManage";
         } else {
             return "redirect:/logout.do";

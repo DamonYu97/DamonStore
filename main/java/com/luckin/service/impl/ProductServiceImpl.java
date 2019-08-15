@@ -40,11 +40,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer updateStatusToInvalid(BigInteger id) {
-        return productDao.updateStatusToInvalid(id);
-    }
-
-    @Override
     public List<ProductImage> findImageByID(BigInteger id) {
         return productDao.findImageByID(id);
     }

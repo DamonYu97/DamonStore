@@ -1,15 +1,17 @@
 package com.luckin.service;
 
-import com.luckin.dao.entity.MemberEntity;
+import com.luckin.dao.entity.Member;
+
+import java.util.List;
 
 public interface MemberService {
     /**
      * 创建会员
      *
-     * @param memberEntity
+     * @param member
      * @return
      */
-    Integer createMember(MemberEntity memberEntity);
+    Integer createMember(Member member);
 
     /**
      * 更新会员
@@ -17,7 +19,7 @@ public interface MemberService {
      * @param
      * @return
      */
-    Integer updateMember(MemberEntity memberEntity);
+    Integer updateMember(Member member);
 
     /**
      * 删除会员
@@ -33,7 +35,13 @@ public interface MemberService {
      * @param name
      * @return
      */
-    MemberEntity getUserByName(String name);
+    Member getUserByName(String name);
+
+    /**
+     * 查找所有会员信息
+     * @return
+     */
+    List<Member> findAllMember();
 
     /**
      * 登录验证

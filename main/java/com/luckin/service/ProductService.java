@@ -39,13 +39,6 @@ public interface ProductService {
     Integer update(Product product);
 
     /**
-     * 下架商品
-     * @param id
-     * @return
-     */
-    Integer updateStatusToInvalid(BigInteger id);
-
-    /**
      * 通过商品ID查看商品图片
      * @param id
      * @return

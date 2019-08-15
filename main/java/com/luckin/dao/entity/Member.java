@@ -2,7 +2,7 @@ package com.luckin.dao.entity;
 
 import java.math.BigInteger;
 
-public class MemberEntity {
+public class Member {
     private BigInteger id;
     private String name;
     private String password;

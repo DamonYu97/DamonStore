@@ -14,12 +14,12 @@ public class Product {
     private int typeId;
     private String description;
     private String brandName;
-    private String stock;
+    private BigInteger stock;
     private BigDecimal price;
     private BigInteger point;
-    private Timestamp createTime;
+    private String createTime;
     private BigInteger createAdminId;
-    private Timestamp modifyTime;
+    private String modifyTime;
     private BigInteger modifyAdminId;
     private int status;
 
@@ -63,11 +63,11 @@ public class Product {
         this.brandName = brandName;
     }
 
-    public String getStock() {
+    public BigInteger getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(BigInteger stock) {
         this.stock = stock;
     }
 
@@ -87,11 +87,11 @@ public class Product {
         this.point = point;
     }
 
-    public Timestamp getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -103,11 +103,11 @@ public class Product {
         this.createAdminId = createAdminId;
     }
 
-    public Timestamp getModifyTime() {
+    public String getModifyTime() {
         return modifyTime;
     }
 
-    public void setModifyTime(Timestamp modifyTime) {
+    public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
     }
 
