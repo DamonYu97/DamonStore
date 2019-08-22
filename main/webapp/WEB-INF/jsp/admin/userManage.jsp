@@ -266,11 +266,10 @@
                 var optionString = "";
                 for (var j = 0; j < date.length;j++) {
                     optionString += "<option value=\"" + date[j].id + "\" >" +date[j].name+" " + "</option>";
-                    $("#selectRole").html(optionString);
                 }
+                $("#selectRole").html(optionString);
             }
         }
-
     );
 </script>
 
@@ -323,10 +322,10 @@
 
 <script type="text/javascript">
     $('#deleteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var username = button.data('username');
+        let button = $(event.relatedTarget);
+        let username = button.data('username');
         console.log('delete username: '+username);
-        var modal = $(this);
+        let modal = $(this);
         modal.find('.modal-body').text('Are you sure you want to delete user ' + username + '?');
         $('#deleteURL').val('${PATH}/admin/deleteAdmin?username='+username);
     });
@@ -335,10 +334,10 @@
         window.location.href=url;
     };
     $('#resetModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var username = button.data('username');
+        let button = $(event.relatedTarget);
+        let username = button.data('username');
         console.log('reset password username: '+username);
-        var modal = $(this);
+        let modal = $(this);
         modal.find('.modal-title').text('Reset password of ' + username);
         $('#resetUsername').val(username);
     });

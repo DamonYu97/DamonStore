@@ -34,6 +34,19 @@ public interface ProductDao {
     List<Product> findAllProduct();
 
     /**
+     * 查询所有有效商品纪录
+     * @return
+     */
+    List<Product> findAllValidProduct();
+
+    /**
+     * 通过类型ID查询所有有效商品纪录
+     * @param typeID
+     * @return
+     */
+    List<Product> findAllValidProductByTypeID(int typeID);
+
+    /**
      * 更新商品商品纪录
      * @param product
      * @return

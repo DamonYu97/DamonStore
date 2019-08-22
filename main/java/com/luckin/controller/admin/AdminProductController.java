@@ -48,8 +48,6 @@ public class AdminProductController {
 
     @Autowired
     private ProductService productService;
-    @Resource
-    private ProductTypeDao productTypeDao;
 
     /**
      * 显示所有商品
@@ -63,7 +61,7 @@ public class AdminProductController {
             jsonObject.put(PRODUCT,JSONObject.toJSON(product));
             BigInteger productID = product.getId();
             //获取商品类型信息
-            ProductType productType = productTypeDao.findProductTypeByID(product.getTypeId());
+            ProductType productType = productService.findProductTypeByID(product.getTypeId());
             jsonObject.put(TYPE,JSONObject.toJSON(productType));
             //获取主图Url, 如果没有设置图片则为默认图片
             ProductImage mainImage = productService.findMainImageByID(productID);

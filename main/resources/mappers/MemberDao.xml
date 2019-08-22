@@ -20,7 +20,7 @@
         WHERE id=#{id};
     </update>
     <select id="findMemberByName" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Member">
-        SELECT * FROM t_member WHERE name=#{name};
+        SELECT * FROM t_member WHERE name=#{name} and status=1;
     </select>
     <!--查找所有会员信息-->
     <select id="findAllMember" resultType="com.luckin.dao.entity.Member">

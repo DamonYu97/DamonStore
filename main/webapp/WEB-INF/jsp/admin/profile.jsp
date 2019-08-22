@@ -266,7 +266,7 @@
                             message: 'The password and its confirm are not the same'
                         }
                     }
-                },
+                }
             }
         });
         $('#phoneForm').bootstrapValidator({

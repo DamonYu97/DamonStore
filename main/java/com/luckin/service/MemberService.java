@@ -35,7 +35,7 @@ public interface MemberService {
      * @param name
      * @return
      */
-    Member getUserByName(String name);
+    Member findMemberByName(String name);
 
     /**
      * 查找所有会员信息

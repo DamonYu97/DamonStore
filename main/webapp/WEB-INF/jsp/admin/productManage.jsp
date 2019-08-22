@@ -67,7 +67,7 @@
                             Add new product
                         </button>
                         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -76,33 +76,37 @@
                                     <form class="form-horizontal" id="addForm" action="${PATH}/admin/product/" method="post">
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="inputName" class="col-sm-3 control-label">Product name</label>
-                                                <div class="col-sm-7">
+                                                <label for="inputName" class="col-sm-2 control-label">Product name</label>
+                                                <div class="col-sm-8">
                                                     <input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputBrandName" class="col-sm-3 control-label">Brand name</label>
-                                                <div class="col-sm-7">
+                                                <label for="inputType" class="col-sm- control-label">Type</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="brandName" id="inputType" placeholder="Brand">
+                                                </div>
+                                                <label for="inputBrandName" class="col-sm-2 control-label">Brand name</label>
+                                                <div class="col-sm-4">
                                                     <input type="text" class="form-control" name="brandName" id="inputBrandName" placeholder="Brand">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputDescription" class="col-sm-3 control-label">Description</label>
-                                                <div class="col-sm-7">
+                                                <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+                                                <div class="col-sm-8">
                                                     <textarea class="form-control" maxlength="500" name="description" id="inputDescription" placeholder="write description no more than 500 letters."></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputStock" class="col-sm-3 control-label">Stock</label>
                                                 <div class="col-sm-7">
-                                                    <input type="number" min="1" class="form-control" name="stock" id="inputStock" placeholder="Stock">
+                                                    <input type="number" min="1" class="form-control" name="stock" id="inputStock" value="1">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputPrice" class="col-sm-3 control-label">Price</label>
                                                 <div class="col-sm-7">
-                                                    <input type="number"  min="0" step="0.01" class="form-control" name="price" id="inputPrice" placeholder="Price">
+                                                    <input type="number"  min="0" step="0.01" class="form-control" name="price" id="inputPrice" placeholder="0">
                                                 </div>
                                             </div>
                                             <div class="form-group hidden">
@@ -401,5 +405,6 @@
         $('#editProductID').attr("value",productID);
     });
 </script>
+
 </body>
 </html>

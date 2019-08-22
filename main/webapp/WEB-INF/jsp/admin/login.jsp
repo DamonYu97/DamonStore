@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <!--JQuery-->
     <script type="text/javascript" src="${PATH}/static/js/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap -->
@@ -19,7 +18,7 @@
 </head>
 <body>
     <div class="container">
-        <p id="home"><a href="${PATH}/admin/index">DamonStore</a></p>
+        <p id="home"><a href="${PATH}/member/index">DamonStore</a></p>
         <h1 id="hello">Hello</h1>
         <h5 class="text-center" style="margin-bottom: 50px;">Sign in to the management system of Damon Store</h5>
         <form action="${PATH}/login" method="post">
@@ -43,9 +42,9 @@
         </form>
         <h5 class="text-center" style="font-weight: normal;"><a href="" style="text-decoration: none;">Reset your password</a></h5>
     </div>
-    <footer class="footer navbar-fixed-bottom">
+    <footer class="footer navbar-fixed-bottom text-center">
             Copyright &copy; 2019 Damon Inc. All Rights Reserved.<br>
-            <a href="${PATH}/admin/index"><img src="${PATH}/static/images/logo_DamonStore.png" width="200px"></a>
+            <a href="${PATH}/member/index"><img src="${PATH}/static/images/logo_DamonStore.png" width="200px"></a>
     </footer>
     </body>
 </html>

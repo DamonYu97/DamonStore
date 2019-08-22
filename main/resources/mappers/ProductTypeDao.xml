@@ -5,12 +5,16 @@
 <mapper namespace="com.luckin.dao.ProductTypeDao">
     <!--插入商品类型信息-->
     <insert id="insert" parameterType="com.luckin.dao.entity.ProductType">
-        INSERT INTO t_product_type(name,parent_id,is_end)
-        VALUES(#{name},#{parentId},#{isEnd});
+        INSERT INTO t_product_type(name,parent_id,is_end,level)
+        VALUES(#{name},#{parentId},#{isEnd},#{level});
     </insert>
     <!--根据类型ID查询商品类型信息-->
     <select id="findProductTypeByID" resultType="com.luckin.dao.entity.ProductType">
         SELECT * FROM t_product_type WHERE id=#{id};
+    </select>
+    <!--根据level查询商品类型信息-->
+    <select id="findProductTypeByLevel" resultType="com.luckin.dao.entity.ProductType">
+        SELECT * FROM t_product_type WHERE level=#{level};
     </select>
     <!--更新商品类型信息-->
     <update id="update" parameterType="com.luckin.dao.entity.ProductType">

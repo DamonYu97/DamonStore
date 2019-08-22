@@ -33,6 +33,7 @@ public class AdminController {
     private final String USERNAME = "username";
     private final String REAL_NAME = "realName";
     private final String PASSWORD = "password";
+    private final String OLD_PASSWORD = "oldPassword";
     private final String NEW_PASSWORD = "newPassword";
     private final String PHONE_NUMBER ="phoneNumber";
     private final String ADMIN = "admin";
@@ -138,7 +139,7 @@ public class AdminController {
     @RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
     public void checkPassword(HttpServletResponse response, HttpServletRequest request) throws IOException {
         //输入的旧密码
-        String oldPassword = request.getParameter("oldPassword");
+        String oldPassword = request.getParameter(OLD_PASSWORD);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         //原密码
         String password = request.getParameter(PASSWORD);

@@ -10,6 +10,7 @@ public class ProductType {
     private int id;
     private String name;
     private int parentId;
+    private int level;
     private int isEnd;
 
     public int getId() {
@@ -44,4 +45,11 @@ public class ProductType {
         this.isEnd = isEnd;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }

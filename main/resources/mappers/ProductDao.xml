@@ -12,6 +12,14 @@
     <select id="findAllProduct" resultType="com.luckin.dao.entity.Product">
         SELECT * FROM t_product;
     </select>
+    <!--查询所有有效商品信息-->
+    <select id="findAllValidProduct" resultType="com.luckin.dao.entity.Product">
+        SELECT * FROM t_product where status=1;
+    </select>
+    <!--通过类型ID查询所有有效商品信息-->
+    <select id="findAllValidProductByTypeID" resultType="com.luckin.dao.entity.Product">
+        SELECT * FROM t_product where status=1 and type_id=#{typeID};
+    </select>
     <!--通过ID查询商品信息-->
     <select id="findProductByID" resultType="com.luckin.dao.entity.Product">
         SELECT * FROM t_product WHERE id=#{id};

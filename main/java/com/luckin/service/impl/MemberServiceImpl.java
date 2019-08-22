@@ -3,6 +3,8 @@ package com.luckin.service.impl;
 import com.luckin.dao.MemberDao;
 import com.luckin.dao.entity.Member;
 import com.luckin.service.MemberService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getUserByName(String name) {
+    public Member findMemberByName(String name) {
         return memberDao.findMemberByName(name);
     }
 
@@ -41,7 +43,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Boolean login(String name, String password) {
         Member member = memberDao.findMemberByName(name);
-        if (member != null && member.getName().equals(name) && member.getPassword().equals(password)){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (member != null && passwordEncoder.matches(password,member.getPassword())){
             return true;
         }
         return false;
