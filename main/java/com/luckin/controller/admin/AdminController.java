@@ -108,7 +108,7 @@ public class AdminController {
     public void checkUsername(HttpServletResponse response, HttpServletRequest request) throws IOException {
         String username = request.getParameter(USERNAME);
         JSONObject jsonObject = new JSONObject();
-        if (!username.equals("") && adminService.findValidAdminByUsername(username) != null) {
+        if (username != null && !username.equals("") && adminService.findValidAdminByUsername(username) != null) {
             jsonObject.put(IS_VALID, false);
         } else {
             jsonObject.put(IS_VALID, true);

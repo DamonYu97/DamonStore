@@ -1,9 +1,15 @@
 package com.luckin.dao;
 
 import com.luckin.dao.entity.Member;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * @author Lilin Yu
+ * @since 2019/08/01 09:10
+ */
 public interface MemberDao {
     /**
      * 插入会员记录
@@ -28,6 +34,14 @@ public interface MemberDao {
      * @return
      */
     Integer update(Member member);
+
+    /**
+     * 更新会员积分
+     * @param memberId
+     * @param point
+     * @return
+     */
+    Integer updatePoint(@Param("memberID") BigInteger memberId, @Param("point") BigInteger point);
 
     /**
      * 根据会员名名查找会员

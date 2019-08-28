@@ -22,8 +22,10 @@
     <!-- Morris Charts CSS -->
     <link href="${PATH}/static/vendor/morrisjs/morris.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <!-- Custom Fonts -->
     <link href="${PATH}/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 
     <!-- DataTables CSS -->
     <link href="${PATH}/static/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -34,8 +36,18 @@
     <!-- Bootstrap Validator CSS -->
     <link href="${PATH}/static/css/bootstrapValidator.min.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+    <!-- File input css -->
+    <link href="${PATH}/static/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <!-- File input js -->
+    <script src="${PATH}/static/js/plugins/piexif.js" type="text/javascript"></script>
+    <script src="${PATH}/static/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="${PATH}/static/js/fileinput.js" type="text/javascript"></script>
+
+    <link href="${PATH}/static/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="${PATH}/static/themes/fas/theme.js" type="text/javascript"></script>
+    <script src="${PATH}/static/themes/explorer-fas/theme.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -82,7 +94,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputType" class="col-sm- control-label">Type</label>
+                                                <label class="col-sm-2 control-label">图片上传:</label>
+                                                <div class="col-sm-10">
+                                                    <input id="imageFile" name="images" class="file file-loading" type="file" multiple data-min-file-count="1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputType" class="col-sm-2 control-label">Type</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" name="brandName" id="inputType" placeholder="Brand">
                                                 </div>
@@ -161,11 +179,11 @@
                                             <div class="form-group">
                                                 <label  class="col-md-3" for="inputEditStock">Stock</label>
                                                 <div class="col-md-7">
-                                                    <input type="number" min="1" class="form-control" name="stock" id="inputEditStock">
+                                                    <input type="number" min="0" class="form-control" name="stock" id="inputEditStock">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label  class="col-md-3" for="inputEditStock">Price</label>
+                                                <label  class="col-md-3" for="inputEditPrice">Price</label>
                                                 <div class="col-md-7">
                                                     <input type="number" min="0" step="0.01" class="form-control" name="price" id="inputEditPrice">
                                                 </div>
@@ -208,8 +226,6 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="${PATH}/static/vendor/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="${PATH}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -404,6 +420,35 @@
         $('#inputEditPrice').attr("value",productPrice);
         $('#editProductID').attr("value",productID);
     });
+
+    $('#imageFile').fileinput({
+        uploadAsync: false,
+        uploadUrl: "${PATH}/admin/product/uploadImage", // your upload server url
+        minFileCount: 1,
+        maxFileCount: 5,
+        maxFileSize: 1024,
+        enctype: 'multipart/form-data'
+    })// 异步上传错误结果处理
+        .on('fileerror', function(event, data, msg) {
+            // 清除当前的预览图 ，并隐藏 【移除】 按钮
+            $(event.target)
+                .fileinput('clear')
+                .fileinput('unlock')
+            $(event.target)
+                .parent()
+                .siblings('.fileinput-remove')
+                .hide()
+            console.log(data);
+        })
+        // 异步上传成功结果处理
+        .on('fileuploaded', function(event, data) {
+            // 判断 code 是否为  0    0 代表成功
+            const getData = data.response
+            console.log(getData)
+
+        });
+
+
 </script>
 
 </body>

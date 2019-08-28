@@ -1,7 +1,9 @@
 package com.luckin.controller.member;
 
 import com.alibaba.fastjson.JSONObject;
+import com.luckin.dao.entity.CartItem;
 import com.luckin.dao.entity.Member;
+import com.luckin.service.CartService;
 import com.luckin.service.MemberService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * @author Lilin Yu
@@ -29,6 +33,7 @@ public class MemberController {
     private final Logger logger = Logger.getLogger(MemberController.class);
     private final String MEMBER_NAME = "memberName";
     private final String MEMBER = "member";
+    private final String CART_ITEM_QUANTITY = "cartItemQuantity";
     private final String OLD_NAME = "oldName";
     private final String OLD_PASSWORD = "oldPassword";
     private final String NEW_PASSWORD = "newPassword";
@@ -41,6 +46,8 @@ public class MemberController {
     private final int MAX_AGE = 3600;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private CartService cartService;
 
     /**
      * DamonStore主页
@@ -65,7 +72,13 @@ public class MemberController {
     public String myAccount(HttpServletRequest request, Model model) {
         //获取当前用户名
         HttpSession session = request.getSession();
+        if (session == null ) {
+            return "redirect:/member/toLogin";
+        }
         Member member = (Member)session.getAttribute(MEMBER);
+        if (member == null ) {
+            return "redirect:/member/toLogin";
+        }
         member = memberService.findMemberByName(member.getName());
         model.addAttribute(MEMBER,member);
         return "member/myAccount";
@@ -77,6 +90,46 @@ public class MemberController {
     @RequestMapping("/address")
     public String address() {
         return "member/address";
+    }
+
+    /**
+     * 会员积分纪录页面
+     */
+    @RequestMapping("/pointRecord")
+    public String pointRecord() {
+        return "member/pointRecord";
+    }
+
+    /**
+     * 会员所有订单纪录页面
+     */
+    @RequestMapping("/allOrders")
+    public String allOrders() {
+        return "member/allOrders";
+    }
+
+    /**
+     * 会员所有未支付订单纪录页面
+     */
+    @RequestMapping("/unpaidOrders")
+    public String unpaidOrders() {
+        return "member/unpaidOrders";
+    }
+
+    /**
+     * 会员所有待发货订单纪录页面
+     */
+    @RequestMapping("/unshippedOrders")
+    public String unshippedOrders() {
+        return "member/unshippedOrders";
+    }
+
+    /**
+     * 会员所有待收货订单纪录页面
+     */
+    @RequestMapping("/unreceivedOrders")
+    public String unreceivedOrders() {
+        return "member/unreceivedOrders";
     }
 
     /**
@@ -96,6 +149,22 @@ public class MemberController {
     }
 
     /**
+     * 购物车页面
+     */
+    @RequestMapping("/cart")
+    public String cart() {
+        return "member/cart";
+    }
+
+    /**
+     * 订单确认页面
+     */
+    @RequestMapping("/orderConfirm")
+    public String orderConfirm() {
+        return "member/orderConfirm";
+    }
+
+    /**
      * 会员登录
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -105,8 +174,8 @@ public class MemberController {
         boolean result = memberService.login(name,password);
         Member member = memberService.findMemberByName(name);
         if (result == true) {
-            //Session 保存登录状态
-            recordLoginState(request, response, member);
+            //Session 保存登录会员
+            recordMemberInfo(request, response, member);
             return "redirect:/member/index";
         } else {
             return "redirect:/member/toLogin?error=true";
@@ -139,23 +208,34 @@ public class MemberController {
         //判断是否注册成功
         boolean result = memberService.login(name,password);
         if (result == true) {
-            recordLoginState(request, response, member);
+            //Session 保存登录会员信息
+            recordMemberInfo(request, response, member);
             return "redirect:/member/index";
         } else {
             return "redirect:/member/toRegister?error=true";
         }
     }
 
-    private void recordLoginState(HttpServletRequest request, HttpServletResponse response, Member member) {
-        //Session 保存登录状态
+    /**
+     * Session 保存登录会员信息
+     * @param request
+     * @param response
+     * @param member
+     */
+    private void recordMemberInfo(HttpServletRequest request, HttpServletResponse response, Member member) {
         HttpSession session = request.getSession();
         String sessionID = session.getId();
         Cookie cookie = new Cookie("JSESSIONID", sessionID);
         cookie.setMaxAge(MAX_AGE);
         cookie.setPath(request.getContextPath());
         response.addCookie(cookie);
+        //保存会员基本信息
         session.setAttribute(MEMBER, member);
+        //保存购物车条目数量
+        List<CartItem> cartItems = cartService.findCartItemByMemberID(member.getId());
+        session.setAttribute(CART_ITEM_QUANTITY, cartItems.size());
         logger.info("Member login: " + member.getName());
+        logger.info("cart item quantity: " + cartItems.size());
     }
 
     /**
@@ -165,7 +245,7 @@ public class MemberController {
     public void checkUsername(HttpServletResponse response, HttpServletRequest request) throws IOException {
         String name = request.getParameter(NAME);
         JSONObject jsonObject = new JSONObject();
-        if (!name.equals("") && memberService.findMemberByName(name) != null) {
+        if (name!= null &&! name.equals("") && memberService.findMemberByName(name) != null) {
             jsonObject.put(IS_VALID, false);
         } else {
             jsonObject.put(IS_VALID, true);
@@ -181,7 +261,8 @@ public class MemberController {
     public String toLogout(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.removeAttribute(MEMBER_NAME);
+            session.removeAttribute(MEMBER);
+            session.removeAttribute(CART_ITEM_QUANTITY);
         }
         return "redirect:/member/toLogin";
     }

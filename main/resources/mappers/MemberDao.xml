@@ -19,6 +19,9 @@
         status=#{status}
         WHERE id=#{id};
     </update>
+    <update id="updatePoint">
+        UPDATE t_member SET point=#{point} where id=#{memberID};
+    </update>
     <select id="findMemberByName" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Member">
         SELECT * FROM t_member WHERE name=#{name} and status=1;
     </select>

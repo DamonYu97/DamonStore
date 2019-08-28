@@ -2,8 +2,13 @@ package com.luckin.service;
 
 import com.luckin.dao.entity.Member;
 
+import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * @author damonyu
+ * @since 2019/08/01 09:20
+ */
 public interface MemberService {
     /**
      * 创建会员
@@ -15,11 +20,18 @@ public interface MemberService {
 
     /**
      * 更新会员
-     *
-     * @param
+     * @param member
      * @return
      */
     Integer updateMember(Member member);
+
+    /**
+     * 更新会员积分
+     * @param memberId
+     * @param point
+     * @return
+     */
+    Integer updatePoint(BigInteger memberId, BigInteger point);
 
     /**
      * 删除会员

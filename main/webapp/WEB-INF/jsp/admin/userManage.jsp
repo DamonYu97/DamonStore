@@ -263,8 +263,8 @@
             async: true,
             dataType: "json",
             success: function (date) {
-                var optionString = "";
-                for (var j = 0; j < date.length;j++) {
+                let optionString = "";
+                for (let j = 0; j < date.length;j++) {
                     optionString += "<option value=\"" + date[j].id + "\" >" +date[j].name+" " + "</option>";
                 }
                 $("#selectRole").html(optionString);

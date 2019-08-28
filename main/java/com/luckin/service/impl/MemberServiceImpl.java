@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -23,6 +24,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer updateMember(Member member) {
         return memberDao.update(member);
+    }
+
+    @Override
+    public Integer updatePoint(BigInteger memberId, BigInteger point) {
+        return memberDao.updatePoint(memberId,point);
     }
 
     @Override

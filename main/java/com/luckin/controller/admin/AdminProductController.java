@@ -1,23 +1,27 @@
 package com.luckin.controller.admin;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.luckin.dao.ProductTypeDao;
 import com.luckin.dao.entity.Admin;
 import com.luckin.dao.entity.Product;
 import com.luckin.dao.entity.ProductImage;
 import com.luckin.dao.entity.ProductType;
 import com.luckin.service.ProductService;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -131,6 +135,24 @@ public class AdminProductController {
                 product.setModifyAdminId(admin.getId());
             }
         }
+    }
+
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+    public void uploadImage(HttpServletResponse response, @RequestParam("images") MultipartFile[] images) throws IOException {
+        JSONArray fileNames = new JSONArray();
+        for (MultipartFile image: images) {
+            if (image.getSize() > 0) {
+                String path = "http://47.106.104.159:8080/images/product/";
+                String fileName = image.getOriginalFilename();
+                Client client = Client.create();
+                WebResource resource = client.resource(path + fileName);
+                resource.put(String.class,image.getBytes());
+                fileNames.add(fileName);
+            }
+        }
+        logger.info("uploaded file: " + fileNames);
+        byte[] dataByte = fileNames.toString().getBytes(StandardCharsets.UTF_8);
+        response.getOutputStream().write(dataByte);
     }
 
 }
