@@ -6,21 +6,61 @@ import java.sql.Timestamp;
 
 /**
  * @author Lilin Yu
+ * @Description 商品类
  * @since 2019/08/08 15:22
  */
 public class Product {
+    /**
+     * id
+     */
     private BigInteger id;
+    /**
+     * 商品名称
+     */
     private String name;
+    /**
+     * 商品类别id
+     */
     private int typeId;
+    /**
+     * 商品描述
+     */
     private String description;
+    /**
+     * 商品品牌名程
+     */
     private String brandName;
+    /**
+     * 商品库存
+     */
     private BigInteger stock;
+    /**
+     * 商品单价
+     */
     private BigDecimal price;
+    /**
+     * 商品所需积分
+     */
     private BigInteger point;
+    /**
+     * 商品创建时间
+     */
     private String createTime;
+    /**
+     * 创建商品的管理员id
+     */
     private BigInteger createAdminId;
+    /**
+     * 商品被修改时间
+     */
     private String modifyTime;
+    /**
+     * 修改商品的管理员id
+     */
     private BigInteger modifyAdminId;
+    /**
+     * 商品状态
+     */
     private int status;
 
     public BigInteger getId() {

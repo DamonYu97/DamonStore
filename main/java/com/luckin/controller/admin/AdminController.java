@@ -108,7 +108,7 @@ public class AdminController {
     public void checkUsername(HttpServletResponse response, HttpServletRequest request) throws IOException {
         String username = request.getParameter(USERNAME);
         JSONObject jsonObject = new JSONObject();
-        if (username != null && !username.equals("") && adminService.findValidAdminByUsername(username) != null) {
+        if (username != null && !"".equals(username) && adminService.findValidAdminByUsername(username) != null) {
             jsonObject.put(IS_VALID, false);
         } else {
             jsonObject.put(IS_VALID, true);
@@ -227,7 +227,7 @@ public class AdminController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(ADMIN, JSONObject.toJSON(admin));
             //获取管理员角色名称
-            String roleName = adminService.findRoleByUsername(admin.getUsername()).getName();
+            String roleName = adminService.findRoleByAdminId(admin.getId()).getName();
             jsonObject.put(ROLE, JSONObject.toJSON(roleName));
             jsonObjects.add(jsonObject);
         }
@@ -270,12 +270,12 @@ public class AdminController {
         adminService.createAdmin(admin);
         //绑定管理员角色
         //1.获取新的管理员的id
-        BigInteger adminID = adminService.findValidAdminByUsername(username).getId();
-        logger.info("adminID: " + adminID);
+        BigInteger adminId = adminService.findValidAdminByUsername(username).getId();
+        logger.info("adminId: " + adminId);
         //2.获取角色id
-        int roleID = Integer.parseInt(request.getParameter(ROLE));
-        logger.info("roleID: " + roleID);
-        adminService.bindRole(adminID, roleID);
+        int roleId = Integer.parseInt(request.getParameter(ROLE));
+        logger.info("roleId: " + roleId);
+        adminService.bindRole(adminId, roleId);
         //返回用户管理界面
         return "redirect:/admin/userManage";
     }

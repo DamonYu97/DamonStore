@@ -16,18 +16,24 @@ import java.util.List;
 public interface AdminDao {
     /**
      * 通过用户名查询当前管理员对象
+     * @param username
+     * @return
      */
     Admin findValidAdminByUsername(String username);
 
     /**
      * 通过用户名查询当前管理员角色
+     * @param adminId
+     * @return
      */
-    Role findRoleByUsername(String username);
+    Role findRoleByAdminId(BigInteger adminId);
 
     /**
      * 通过用户名查询当前管理员拥有的权限
+     * @param adminId
+     * @return
      */
-    List<Permission> findPermissionByUsername(String username);
+    List<Permission> findPermissionByAdminId(BigInteger adminId);
 
     /**
      * 插入管理员记录
@@ -45,11 +51,11 @@ public interface AdminDao {
 
     /**
      * 绑定管理员角色
-     * @param adminID
-     * @param roleID
+     * @param adminId
+     * @param roleId
      * @return
      */
-    Integer bindRole(@Param("adminID") BigInteger adminID, @Param("roleID") int roleID);
+    Integer bindRole(@Param("adminId") BigInteger adminId, @Param("roleId") int roleId);
 
     /**
      * 更新管理员信息
@@ -60,11 +66,13 @@ public interface AdminDao {
 
     /**
      * 查询所有管理员对象
+     * @return
      */
     List<Admin> findAllAdmin();
 
     /**
      * 查询所有管理员对象
+     * @return
      */
     List<Role> findAllRole();
 

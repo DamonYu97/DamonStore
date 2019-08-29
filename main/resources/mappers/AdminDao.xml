@@ -9,18 +9,18 @@
     </select>
 
     <!--查询管理员角色-->
-    <select id="findRoleByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Role">
+    <select id="findRoleByAdminId" resultType="com.luckin.dao.entity.Role">
         SELECT r.*
         FROM t_admin a, t_admin_role ar, t_role r
-        WHERE a.id = ar.admin_id and ar.role_id = r.id and a.username = #{username};
+        WHERE a.id = ar.admin_id and ar.role_id = r.id and a.id = #{adminId};
     </select>
 
     <!--查询管理员的权限-->
-    <select id="findPermissionByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Permission">
+    <select id="findPermissionByAdminId" resultType="com.luckin.dao.entity.Permission">
         SELECT p.*
         FROM t_admin a, t_admin_role ar, t_role_permission rp, t_permission p
         WHERE a.id = ar.admin_id and ar.role_id = rp.role_id and rp.permission_id = p.id
-        and a.username = #{username};
+        and a.id = #{adminId};
     </select>
 
     <!--插入管理员信息-->
@@ -38,7 +38,7 @@
     <!--绑定管理员角色-->
     <insert id="bindRole">
         INSERT INTO t_admin_role(admin_id, role_id)
-        VALUES(#{adminID}, #{roleID});
+        VALUES(#{adminId}, #{roleId});
     </insert>
 
     <!--更新管理员信息-->

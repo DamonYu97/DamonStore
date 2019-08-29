@@ -4,12 +4,25 @@ import java.math.BigInteger;
 
 /**
  * @author Lilin Yu
+ * @Description 商品图片类
  * @since 2019/08/08 15:24
  */
 public class ProductImage {
+    /**
+     * id
+     */
     private BigInteger id;
+    /**
+     * 商品id
+     */
     private BigInteger productId;
+    /**
+     * 商品图片URL
+     */
     private String url;
+    /**
+     * 商品是否为主图
+     */
     private int isMain;
 
     public BigInteger getId() {

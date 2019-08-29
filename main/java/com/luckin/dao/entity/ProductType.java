@@ -4,13 +4,29 @@ import java.math.BigInteger;
 
 /**
  * @author Lilin Yu
+ * @Description 商品类别类
  * @since 2019/08/08 15:25
  */
 public class ProductType {
+    /**
+     * id
+     */
     private int id;
+    /**
+     * 类别名字
+     */
     private String name;
+    /**
+     * 父级类别id
+     */
     private int parentId;
+    /**
+     * 类别层级
+     */
     private int level;
+    /**
+     * 是否为底级
+     */
     private int isEnd;
 
     public int getId() {

@@ -11,6 +11,10 @@ import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * @author damonyu
+ * @since 2019/08/01 09:32
+ */
 @Service
 public class MemberServiceImpl implements MemberService {
     @Resource

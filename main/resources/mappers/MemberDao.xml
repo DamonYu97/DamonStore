@@ -3,10 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luckin.dao.MemberDao">
+    <!-- 插入会员纪录 -->
     <insert id="insert" parameterType="com.luckin.dao.entity.Member">
         INSERT INTO t_member(name,password)
         VALUES(#{name},#{password});
     </insert>
+    <!-- 更新会员信息 -->
     <update id="update" parameterType="com.luckin.dao.entity.Member">
         UPDATE t_member SET
         name=#{name},
@@ -19,9 +21,11 @@
         status=#{status}
         WHERE id=#{id};
     </update>
+    <!-- 更新积分 -->
     <update id="updatePoint">
         UPDATE t_member SET point=#{point} where id=#{memberID};
     </update>
+    <!-- 根据会员名称查找会员信息 -->
     <select id="findMemberByName" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Member">
         SELECT * FROM t_member WHERE name=#{name} and status=1;
     </select>

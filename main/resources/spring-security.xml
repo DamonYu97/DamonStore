@@ -3,20 +3,20 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-    <!--
-           auto-config:这个是一个自动配置过滤器(Filter)的属性
-           use-expressions:"是否使用spel表达式"，如果使用表达式：hasRole('ROLE_USER')
-       -->
     <http pattern="/index.jsp" security="none"/>
-    <http pattern="/member/**" security="none"/>
     <http pattern="/static/**" security="none"/>
     <http>
         <form-login login-page="/admin/adminLogin" login-processing-url="/login" authentication-failure-url="/admin/adminLogin?error=true" authentication-success-forward-url="/admin/index"/>
         <logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/admin/adminLogin"></logout>
         <remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600"></remember-me>
         <csrf disabled="true"/>
-        <!-- 配置拦截的请求地址，任何请求地址都必须有ROLE_USER的权限 -->
+        <!-- 配置拦截的请求地址，任何管理系统的请求地址都必须有权限 -->
         <intercept-url pattern="/admin/adminLogin" access="permitAll()"/>
+        <intercept-url pattern="/admin/memberManage" access="hasAuthority('ROLE_CHECK_MEMBER')"></intercept-url>
+        <intercept-url pattern="/admin/userManager" access="hasAuthority('ROLE_CHECK_ADMIN')"></intercept-url>
+        <intercept-url pattern="/admin/productManager" access="hasAuthority('ROLE_CHECK_PRODUCT')"></intercept-url>
+        <intercept-url pattern="/admin/pointManager" access="hasAuthority('ROLE_CHECK_POINT')"></intercept-url>
+        <intercept-url pattern="/admin/orderManager" access="hasAuthority('ROLE_CHECK_ORDER')"></intercept-url>
         <intercept-url pattern="/admin/**" access="isFullyAuthenticated()" />
     </http>
     <!--配置授权信息-->

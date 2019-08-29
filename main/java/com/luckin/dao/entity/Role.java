@@ -4,12 +4,22 @@ import java.math.BigInteger;
 
 /**
  * @author Lilin Yu
+ * @Description 管理员角色类
  * @since 2019/08/01 10:10
  */
 
 public class Role {
+    /**
+     * 角色id
+     */
     private int id;
+    /**
+     * 角色名称
+     */
     private String name;
+    /**
+     * 角色描述
+     */
     private String description;
 
     public int getId() {

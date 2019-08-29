@@ -10,18 +10,38 @@ import java.util.List;
 
 /**
  * @author Lilin Yu
+ * @Description 管理员类
  * @since 2019/08/01 10:00
  */
 
 public class Admin implements UserDetails {
+    /**
+     * id
+     */
     private BigInteger id;
+    /**
+     * 管理员登录用户名
+     */
     private String username;
+    /**
+     * 管理员真实姓名
+     */
     private String realName;
+    /**
+     * 管理员登录密码
+     */
     private String password;
+    /**
+     * 管理员手机号码
+     */
     private String phoneNumber;
+    /**
+     * 管理员账号状态
+     */
     private int status;
-
-    // 储存用户拥有的所有权限
+    /**
+     * 权限
+     */
     private List<GrantedAuthority> authorities = new ArrayList<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

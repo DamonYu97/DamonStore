@@ -2,15 +2,48 @@ package com.luckin.dao.entity;
 
 import java.math.BigInteger;
 
+/**
+ * @author Lilin Yu
+ * @Description 会员类
+ * @since 2019/08/01 09:01
+ */
+
 public class Member {
+    /**
+     * id
+     */
     private BigInteger id;
+    /**
+     * 会员登录名称
+     */
     private String name;
+    /**
+     * 会员登录密码
+     */
     private String password;
+    /**
+     * 会员头像URL
+     */
     private String imageUrl;
+    /**
+     * 性别
+     */
     private int gender;
+    /**
+     * 手机号
+     */
     private String phoneNumber;
+    /**
+     * 邮箱
+     */
     private String email;
+    /**
+     * 总积分
+     */
     private BigInteger point;
+    /**
+     * 会员账号状态
+     */
     private int status;
 
     public BigInteger getId() {

@@ -28,7 +28,7 @@ public interface ProductTypeDao {
      * @param id
      * @return
      */
-    ProductType findProductTypeByID(int id);
+    ProductType findProductTypeById(int id);
 
     /**
      * 通过level查看商品类型纪录

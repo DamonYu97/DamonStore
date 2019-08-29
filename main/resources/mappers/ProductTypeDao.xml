@@ -9,7 +9,7 @@
         VALUES(#{name},#{parentId},#{isEnd},#{level});
     </insert>
     <!--根据类型ID查询商品类型信息-->
-    <select id="findProductTypeByID" resultType="com.luckin.dao.entity.ProductType">
+    <select id="findProductTypeById" resultType="com.luckin.dao.entity.ProductType">
         SELECT * FROM t_product_type WHERE id=#{id};
     </select>
     <!--根据level查询商品类型信息-->

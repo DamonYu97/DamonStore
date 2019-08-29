@@ -24,7 +24,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    Product findProductByID(BigInteger id);
+    Product findProductById(BigInteger id);
 
     /**
      * 查询所有商品
@@ -40,10 +40,10 @@ public interface ProductService {
 
     /**
      * 通过类型ID查询所有有效商品纪录
-     * @param typeID
+     * @param typeId
      * @return
      */
-    List<Product> findAllValidProductByTypeID(int typeID);
+    List<Product> findAllValidProductByTypeId(int typeId);
 
     /**
      * 更新商品
@@ -57,21 +57,21 @@ public interface ProductService {
      * @param id
      * @return
      */
-    List<ProductImage> findImageByID(BigInteger id);
+    List<ProductImage> findImageById(BigInteger id);
 
     /**
      * 通过商品ID查看商品主图片
      * @param id
      * @return
      */
-    ProductImage findMainImageByID(BigInteger id);
+    ProductImage findMainImageById(BigInteger id);
 
     /**
      * 通过ID查看商品类型纪录
      * @param id
      * @return
      */
-    ProductType findProductTypeByID(int id);
+    ProductType findProductTypeById(int id);
 
     /**
      * 通过level查看商品类型纪录

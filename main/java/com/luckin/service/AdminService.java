@@ -30,10 +30,11 @@ public interface AdminService extends UserDetailsService{
 
     /**
      * 绑定管理员角色
-     * @param adminID, roleID
+     * @param adminId
+     * @param roleId
      * @return
      */
-    Integer bindRole(BigInteger adminID, int roleID);
+    Integer bindRole(BigInteger adminId, int roleId);
 
     /**
      * 更新管理员
@@ -44,10 +45,10 @@ public interface AdminService extends UserDetailsService{
 
     /**
      * 通过用户名查看管理员角色信息
-     * @param username
+     * @param adminId
      * @return
      */
-    Role findRoleByUsername(String username);
+    Role findRoleByAdminId(BigInteger adminId);
 
     /**
      * 通过用户名查看有效的管理员信息

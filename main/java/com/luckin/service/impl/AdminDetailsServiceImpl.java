@@ -30,7 +30,7 @@ public class AdminDetailsServiceImpl implements AdminService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Admin admin = adminDao.findValidAdminByUsername(username);
-        List<Permission> permissions = adminDao.findPermissionByUsername(username);
+        List<Permission> permissions = adminDao.findPermissionByAdminId(admin.getId());
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Permission permission: permissions) {
             GrantedAuthority authority = new SimpleGrantedAuthority(permission.getTag());
@@ -38,7 +38,6 @@ public class AdminDetailsServiceImpl implements AdminService {
             logger.info(permission.getTag());
         }
         admin.setAuthorities(authorities);
-        //User user = new User("damon","{noop}1204578616",AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
         return admin;
     }
 
@@ -54,8 +53,8 @@ public class AdminDetailsServiceImpl implements AdminService {
 
 
     @Override
-    public Integer bindRole(BigInteger adminID, int roleID) {
-        return adminDao.bindRole(adminID,roleID);
+    public Integer bindRole(BigInteger adminId, int roleId) {
+        return adminDao.bindRole(adminId, roleId);
     }
 
     @Override
@@ -64,8 +63,8 @@ public class AdminDetailsServiceImpl implements AdminService {
     }
 
     @Override
-    public Role findRoleByUsername(String username) {
-        return adminDao.findRoleByUsername(username);
+    public Role findRoleByAdminId(BigInteger adminId) {
+        return adminDao.findRoleByAdminId(adminId);
     }
 
     @Override

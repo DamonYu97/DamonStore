@@ -29,8 +29,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findProductByID(BigInteger id) {
-        return productDao.findProductByID(id);
+    public Product findProductById(BigInteger id) {
+        return productDao.findProductById(id);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllValidProductByTypeID(int typeID) {
-        return productDao.findAllValidProductByTypeID(typeID);
+    public List<Product> findAllValidProductByTypeId(int typeId) {
+        return productDao.findAllValidProductByTypeId(typeId);
     }
 
     @Override
@@ -54,18 +54,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductImage> findImageByID(BigInteger id) {
-        return productDao.findImageByID(id);
+    public List<ProductImage> findImageById(BigInteger id) {
+        return productDao.findImageById(id);
     }
 
     @Override
-    public ProductImage findMainImageByID(BigInteger id) {
-        return productDao.findMainImageByID(id);
+    public ProductImage findMainImageById(BigInteger id) {
+        return productDao.findMainImageById(id);
     }
 
     @Override
-    public ProductType findProductTypeByID(int id) {
-        return productTypeDao.findProductTypeByID(id);
+    public ProductType findProductTypeById(int id) {
+        return productTypeDao.findProductTypeById(id);
     }
 
     @Override

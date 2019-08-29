@@ -57,8 +57,8 @@ public interface MemberService {
 
     /**
      * 登录验证
-     *
-     * @param name,password
+     * @param name
+     * @param password
      * @return
      */
     Boolean login(String name, String password);
@@ -66,7 +66,8 @@ public interface MemberService {
     /**
      * 登录验证
      *
-     * @param name,password
+     * @param name
+     * @param password
      * @return
      */
     Boolean register(String name, String password);

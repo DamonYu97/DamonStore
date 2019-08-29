@@ -224,15 +224,15 @@ public class MemberController {
      */
     private void recordMemberInfo(HttpServletRequest request, HttpServletResponse response, Member member) {
         HttpSession session = request.getSession();
-        String sessionID = session.getId();
-        Cookie cookie = new Cookie("JSESSIONID", sessionID);
+        String sessionId = session.getId();
+        Cookie cookie = new Cookie("JSESSIONID", sessionId);
         cookie.setMaxAge(MAX_AGE);
         cookie.setPath(request.getContextPath());
         response.addCookie(cookie);
         //保存会员基本信息
         session.setAttribute(MEMBER, member);
         //保存购物车条目数量
-        List<CartItem> cartItems = cartService.findCartItemByMemberID(member.getId());
+        List<CartItem> cartItems = cartService.findCartItemByMemberId(member.getId());
         session.setAttribute(CART_ITEM_QUANTITY, cartItems.size());
         logger.info("Member login: " + member.getName());
         logger.info("cart item quantity: " + cartItems.size());
@@ -245,7 +245,7 @@ public class MemberController {
     public void checkUsername(HttpServletResponse response, HttpServletRequest request) throws IOException {
         String name = request.getParameter(NAME);
         JSONObject jsonObject = new JSONObject();
-        if (name!= null &&! name.equals("") && memberService.findMemberByName(name) != null) {
+        if (name!= null &&! "".equals(name) && memberService.findMemberByName(name) != null) {
             jsonObject.put(IS_VALID, false);
         } else {
             jsonObject.put(IS_VALID, true);

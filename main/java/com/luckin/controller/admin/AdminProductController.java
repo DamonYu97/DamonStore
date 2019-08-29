@@ -63,20 +63,20 @@ public class AdminProductController {
         for (Product product:products) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(PRODUCT,JSONObject.toJSON(product));
-            BigInteger productID = product.getId();
+            BigInteger productId = product.getId();
             //获取商品类型信息
-            ProductType productType = productService.findProductTypeByID(product.getTypeId());
+            ProductType productType = productService.findProductTypeById(product.getTypeId());
             jsonObject.put(TYPE,JSONObject.toJSON(productType));
             //获取主图Url, 如果没有设置图片则为默认图片
-            ProductImage mainImage = productService.findMainImageByID(productID);
+            ProductImage mainImage = productService.findMainImageById(productId);
             if (mainImage == null) {
-                mainImage = productService.findMainImageByID(DEFAULT_PRODUCT_ID);
+                mainImage = productService.findMainImageById(DEFAULT_PRODUCT_ID);
             }
             jsonObject.put(MAIN_IMAGE_URL,mainImage.getUrl());
             //获取所有商品图片信息，如果没有设置图片则为默认图片
-            List<ProductImage> productImages = productService.findImageByID(productID);
+            List<ProductImage> productImages = productService.findImageById(productId);
             if (productImages.isEmpty()) {
-                productImages = productService.findImageByID(DEFAULT_PRODUCT_ID);
+                productImages = productService.findImageById(DEFAULT_PRODUCT_ID);
             }
             jsonObject.put(IMAGE_URLS,productImages);
             jsonObjects.add(jsonObject);
@@ -92,7 +92,7 @@ public class AdminProductController {
     @RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
     public String deleteProduct(HttpServletRequest request) throws IOException {
         BigInteger productId = new BigInteger(request.getParameter(ID));
-        Product product = productService.findProductByID(productId);
+        Product product = productService.findProductById(productId);
         //更改商品状态为无效
         product.setStatus(0);
         //纪录修改时间和修改人ID
@@ -108,10 +108,10 @@ public class AdminProductController {
      */
     @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
     public String updateProduct(HttpServletRequest request) throws IOException {
-        BigInteger productID = new BigInteger(request.getParameter(ID));
+        BigInteger productId = new BigInteger(request.getParameter(ID));
         BigInteger stock = new BigInteger(request.getParameter(STOCK));
         BigDecimal price = new BigDecimal(request.getParameter(PRICE));
-        Product product = productService.findProductByID(productID);
+        Product product = productService.findProductById(productId);
         product.setStock(stock);
         product.setPrice(price);
         //纪录修改时间和修改人ID
