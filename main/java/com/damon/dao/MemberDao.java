@@ -1,6 +1,6 @@
-package com.luckin.dao;
+package com.damon.dao;
 
-import com.luckin.dao.entity.Member;
+import com.damon.dao.entity.Member;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;

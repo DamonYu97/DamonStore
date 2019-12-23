@@ -1,10 +1,10 @@
-package com.luckin.service.impl;
+package com.damon.service.impl;
 
-import com.luckin.dao.AdminDao;
-import com.luckin.dao.entity.Admin;
-import com.luckin.dao.entity.Permission;
-import com.luckin.dao.entity.Role;
-import com.luckin.service.AdminService;
+import com.damon.dao.AdminDao;
+import com.damon.dao.entity.Admin;
+import com.damon.dao.entity.Permission;
+import com.damon.dao.entity.Role;
+import com.damon.service.AdminService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

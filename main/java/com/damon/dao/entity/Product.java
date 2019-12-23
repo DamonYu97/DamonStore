@@ -1,8 +1,7 @@
-package com.luckin.dao.entity;
+package com.damon.dao.entity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 
 /**
  * @author Lilin Yu
@@ -26,6 +25,10 @@ public class Product {
      * 商品描述
      */
     private String description;
+    /**
+     * 商品视频地址
+     */
+    private String videoUrl;
     /**
      * 商品品牌名程
      */
@@ -94,6 +97,15 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
 
     public String getBrandName() {
         return brandName;

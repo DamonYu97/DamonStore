@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.luckin.dao.AdminDao">
+<mapper namespace="com.damon.dao.AdminDao">
     <!--查询管理员信息-->
-    <select id="findValidAdminByUsername" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Admin">
+    <select id="findValidAdminByUsername" parameterType="java.lang.String" resultType="com.damon.dao.entity.Admin">
         SELECT * FROM t_admin WHERE username = #{username} and status = 1;
     </select>
 
     <!--查询管理员角色-->
-    <select id="findRoleByAdminId" resultType="com.luckin.dao.entity.Role">
+    <select id="findRoleByAdminId" resultType="com.damon.dao.entity.Role">
         SELECT r.*
         FROM t_admin a, t_admin_role ar, t_role r
         WHERE a.id = ar.admin_id and ar.role_id = r.id and a.id = #{adminId};
     </select>
 
     <!--查询管理员的权限-->
-    <select id="findPermissionByAdminId" resultType="com.luckin.dao.entity.Permission">
+    <select id="findPermissionByAdminId" resultType="com.damon.dao.entity.Permission">
         SELECT p.*
         FROM t_admin a, t_admin_role ar, t_role_permission rp, t_permission p
         WHERE a.id = ar.admin_id and ar.role_id = rp.role_id and rp.permission_id = p.id
@@ -24,7 +24,7 @@
     </select>
 
     <!--插入管理员信息-->
-    <insert id="insert" parameterType="com.luckin.dao.entity.Admin">
+    <insert id="insert" parameterType="com.damon.dao.entity.Admin">
         INSERT INTO t_admin(username,real_name,password,phone_number)
         VALUES(#{username},#{realName},#{password},#{phoneNumber});
     </insert>
@@ -42,7 +42,7 @@
     </insert>
 
     <!--更新管理员信息-->
-    <update id="update" parameterType="com.luckin.dao.entity.Admin">
+    <update id="update" parameterType="com.damon.dao.entity.Admin">
         UPDATE t_admin SET
         username=#{username},
         password=#{password},
@@ -52,12 +52,12 @@
     </update>
     
     <!--查找所有管理员信息-->
-    <select id="findAllAdmin" resultType="com.luckin.dao.entity.Admin">
+    <select id="findAllAdmin" resultType="com.damon.dao.entity.Admin">
         SELECT * FROM t_admin;
     </select>
 
     <!--查找所有角色-->
-    <select id="findAllRole" resultType="com.luckin.dao.entity.Role">
+    <select id="findAllRole" resultType="com.damon.dao.entity.Role">
         SELECT * FROM t_role;
     </select>
 </mapper>

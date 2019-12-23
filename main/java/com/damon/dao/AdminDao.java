@@ -1,8 +1,8 @@
-package com.luckin.dao;
+package com.damon.dao;
 
-import com.luckin.dao.entity.Admin;
-import com.luckin.dao.entity.Role;
-import com.luckin.dao.entity.Permission;
+import com.damon.dao.entity.Admin;
+import com.damon.dao.entity.Role;
+import com.damon.dao.entity.Permission;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;

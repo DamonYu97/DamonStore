@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.luckin.dao.MemberDao">
+<mapper namespace="com.damon.dao.MemberDao">
     <!-- 插入会员纪录 -->
-    <insert id="insert" parameterType="com.luckin.dao.entity.Member">
+    <insert id="insert" parameterType="com.damon.dao.entity.Member">
         INSERT INTO t_member(name,password)
         VALUES(#{name},#{password});
     </insert>
     <!-- 更新会员信息 -->
-    <update id="update" parameterType="com.luckin.dao.entity.Member">
+    <update id="update" parameterType="com.damon.dao.entity.Member">
         UPDATE t_member SET
         name=#{name},
         password=#{password},
@@ -26,11 +26,11 @@
         UPDATE t_member SET point=#{point} where id=#{memberID};
     </update>
     <!-- 根据会员名称查找会员信息 -->
-    <select id="findMemberByName" parameterType="java.lang.String" resultType="com.luckin.dao.entity.Member">
+    <select id="findMemberByName" parameterType="java.lang.String" resultType="com.damon.dao.entity.Member">
         SELECT * FROM t_member WHERE name=#{name} and status=1;
     </select>
     <!--查找所有会员信息-->
-    <select id="findAllMember" resultType="com.luckin.dao.entity.Member">
+    <select id="findAllMember" resultType="com.damon.dao.entity.Member">
         SELECT * FROM t_member;
     </select>
     <delete id="delete" parameterType="java.lang.String">

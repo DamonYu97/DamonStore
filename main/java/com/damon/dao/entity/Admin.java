@@ -1,4 +1,4 @@
-package com.luckin.dao.entity;
+package com.damon.dao.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

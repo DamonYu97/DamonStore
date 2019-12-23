@@ -2,30 +2,30 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.luckin.dao.ProductDao">
+<mapper namespace="com.damon.dao.ProductDao">
     <!--插入商品信息-->
-    <insert id="insert" parameterType="com.luckin.dao.entity.Product">
+    <insert id="insert" parameterType="com.damon.dao.entity.Product">
         INSERT INTO t_product(name,type_id,brand_name,description,stock,price,point,create_admin_id)
         VALUES(#{name},#{typeId},#{brandName},#{description},#{stock},#{price},#{point},#{createAdminId});
     </insert>
     <!--查询所有商品信息-->
-    <select id="findAllProduct" resultType="com.luckin.dao.entity.Product">
+    <select id="findAllProduct" resultType="com.damon.dao.entity.Product">
         SELECT * FROM t_product;
     </select>
     <!--查询所有有效商品信息-->
-    <select id="findAllValidProduct" resultType="com.luckin.dao.entity.Product">
+    <select id="findAllValidProduct" resultType="com.damon.dao.entity.Product">
         SELECT * FROM t_product where status=1;
     </select>
     <!--通过类型ID查询所有有效商品信息-->
-    <select id="findAllValidProductByTypeId" resultType="com.luckin.dao.entity.Product">
+    <select id="findAllValidProductByTypeId" resultType="com.damon.dao.entity.Product">
         SELECT * FROM t_product where status=1 and type_id=#{typeId};
     </select>
     <!--通过ID查询商品信息-->
-    <select id="findProductById" resultType="com.luckin.dao.entity.Product">
+    <select id="findProductById" resultType="com.damon.dao.entity.Product">
         SELECT * FROM t_product WHERE id=#{id};
     </select>
     <!--更新商品信息-->
-    <update id="update" parameterType="com.luckin.dao.entity.Product">
+    <update id="update" parameterType="com.damon.dao.entity.Product">
         UPDATE t_product SET
         name=#{name},
         type_id=#{typeId},
@@ -42,11 +42,11 @@
         WHERE id=#{id};
     </update>
     <!--通过商品ID查看商品图片信息-->
-    <select id="findImageById" resultType="com.luckin.dao.entity.ProductImage">
+    <select id="findImageById" resultType="com.damon.dao.entity.ProductImage">
         SELECT * FROM t_product_image WHERE product_id=#{productID};
     </select>
     <!--通过商品ID查看商品主图图片信息-->
-    <select id="findMainImageById" resultType="com.luckin.dao.entity.ProductImage">
+    <select id="findMainImageById" resultType="com.damon.dao.entity.ProductImage">
         SELECT * FROM t_product_image WHERE product_id=#{productID} and is_main=1;
     </select>
 </mapper>

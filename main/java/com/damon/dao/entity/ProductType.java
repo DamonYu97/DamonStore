@@ -1,6 +1,4 @@
-package com.luckin.dao.entity;
-
-import java.math.BigInteger;
+package com.damon.dao.entity;
 
 /**
  * @author Lilin Yu

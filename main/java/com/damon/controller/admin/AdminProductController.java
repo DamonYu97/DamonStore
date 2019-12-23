@@ -1,13 +1,13 @@
-package com.luckin.controller.admin;
+package com.damon.controller.admin;
 
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.luckin.dao.entity.Admin;
-import com.luckin.dao.entity.Product;
-import com.luckin.dao.entity.ProductImage;
-import com.luckin.dao.entity.ProductType;
-import com.luckin.service.ProductService;
+import com.damon.dao.entity.Admin;
+import com.damon.dao.entity.Product;
+import com.damon.dao.entity.ProductImage;
+import com.damon.dao.entity.ProductType;
+import com.damon.service.ProductService;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.log4j.Logger;
@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;

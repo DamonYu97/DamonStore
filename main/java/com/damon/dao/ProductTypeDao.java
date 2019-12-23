@@ -1,6 +1,6 @@
-package com.luckin.dao;
+package com.damon.dao;
 
-import com.luckin.dao.entity.ProductType;
+import com.damon.dao.entity.ProductType;
 
 import java.util.List;
 

@@ -1,34 +1,33 @@
-package com.luckin.dao;
+package com.damon.service;
 
-
-import com.luckin.dao.entity.Product;
-import com.luckin.dao.entity.ProductImage;
+import com.damon.dao.entity.Product;
+import com.damon.dao.entity.ProductImage;
+import com.damon.dao.entity.ProductType;
 
 import java.math.BigInteger;
 import java.util.List;
 
 /**
  * @author Lilin Yu
- * @since 2019/08/08 15:44
+ * @since 2019/08/08 16.21
  */
-public interface ProductDao {
-
+public interface ProductService {
     /**
-     * 插入商品纪录
+     * 新增商品
      * @param product
      * @return
      */
-    Integer insert(Product product);
+    Integer create(Product product);
 
     /**
-     * 通过商品ID查询商品纪录
+     * 通过商品ID查询商品商品信息
      * @param id
      * @return
      */
     Product findProductById(BigInteger id);
 
     /**
-     * 查询所有商品纪录
+     * 查询所有商品
      * @return
      */
     List<Product> findAllProduct();
@@ -47,7 +46,7 @@ public interface ProductDao {
     List<Product> findAllValidProductByTypeId(int typeId);
 
     /**
-     * 更新商品商品纪录
+     * 更新商品
      * @param product
      * @return
      */
@@ -66,4 +65,18 @@ public interface ProductDao {
      * @return
      */
     ProductImage findMainImageById(BigInteger id);
+
+    /**
+     * 通过ID查看商品类型纪录
+     * @param id
+     * @return
+     */
+    ProductType findProductTypeById(int id);
+
+    /**
+     * 通过level查看商品类型纪录
+     * @param level
+     * @return
+     */
+    List<ProductType> findProductTypeByLevel(int level);
 }

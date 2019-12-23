@@ -1,10 +1,10 @@
-package com.luckin.controller.member;
+package com.damon.controller.member;
 
 import com.alibaba.fastjson.JSONObject;
-import com.luckin.dao.entity.CartItem;
-import com.luckin.dao.entity.Member;
-import com.luckin.service.CartService;
-import com.luckin.service.MemberService;
+import com.damon.dao.entity.CartItem;
+import com.damon.dao.entity.Member;
+import com.damon.service.CartService;
+import com.damon.service.MemberService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 

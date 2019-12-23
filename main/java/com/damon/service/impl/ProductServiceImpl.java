@@ -1,11 +1,11 @@
-package com.luckin.service.impl;
+package com.damon.service.impl;
 
-import com.luckin.dao.ProductDao;
-import com.luckin.dao.ProductTypeDao;
-import com.luckin.dao.entity.Product;
-import com.luckin.dao.entity.ProductImage;
-import com.luckin.dao.entity.ProductType;
-import com.luckin.service.ProductService;
+import com.damon.dao.ProductDao;
+import com.damon.dao.ProductTypeDao;
+import com.damon.dao.entity.Product;
+import com.damon.dao.entity.ProductImage;
+import com.damon.dao.entity.ProductType;
+import com.damon.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

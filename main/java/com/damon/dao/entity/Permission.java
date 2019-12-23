@@ -1,4 +1,4 @@
-package com.luckin.dao.entity;
+package com.damon.dao.entity;
 
 import java.math.BigInteger;
 

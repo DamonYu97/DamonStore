@@ -1,9 +1,9 @@
-package com.luckin.controller.admin;
+package com.damon.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
-import com.luckin.dao.entity.Admin;
-import com.luckin.dao.entity.Role;
-import com.luckin.service.AdminService;
+import com.damon.dao.entity.Admin;
+import com.damon.dao.entity.Role;
+import com.damon.service.AdminService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
