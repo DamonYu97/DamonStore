@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Lilin Yu
  * @Description 管理员类
- * @since 2019/08/01 10:00
+ * @since 2019/11/01 10:00
  */
 
 public class Admin implements UserDetails {

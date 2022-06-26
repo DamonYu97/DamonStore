@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.damon.dao.OrderDao">
+    <!--插入新订单-->
+    <insert id="insertOrder" parameterType="com.damon.dao.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order(member_id,receiver_name,receiver_phone,receiver_address,total_price,total_point)
+        VALUES(#{memberId},#{receiverName},#{receiverPhone},#{receiverAddress},#{totalPrice},#{totalPoint});
+    </insert>
+    <!--插入订单条目-->
+    <insert id="insertOrderItem" parameterType="com.damon.dao.entity.OrderItem">
+        INSERT INTO t_order_item(order_id,product_id,price,quantity)
+        VALUES(#{orderId},#{productId},#{price},#{quantity});
+    </insert>
+    <!--更新订单-->
+    <update id="update" parameterType="com.damon.dao.entity.Order">
+        UPDATE t_order SET
+        member_id=#{memberId},
+        total_price=#{totalPrice},
+        total_point=#{totalPoint},
+        create_time=#{createTime},
+        receiver_name=#{receiverName},
+        receiver_phone=#{receiverPhone},
+        receiver_address=#{receiverAddress},
+        modify_time=#{modifyTime},
+        status=#{status}
+        WHERE id=#{id};
+    </update>
+    <!--更新订单库存-->
+    <update id="updateStock">
+        UPDATE t_product SET
+        stock=stock-#{quantity}
+        WHERE id=#{productId};
+    </update>
+    <!--更新订单状态-->
+    <update id="updateStatus">
+        UPDATE t_order SET
+        status=#{status}
+        WHERE id=#{orderId};
+    </update>
+    <!--更新订单修改时间-->
+    <update id="updateModifyTime">
+        UPDATE t_order SET
+        modify_time=#{currentTime}
+        WHERE id=#{orderId};
+    </update>
+    <!--通过会员ID所有订单信息-->
+    <select id="findAllOrderByMemberId" resultType="com.damon.dao.entity.Order">
+        SELECT * FROM t_order where member_id=#{memberId} ORDER BY id DESC;
+    </select>
+    <!--通过会员ID和状态所有订单信息-->
+    <select id="findAllOrderByMemberIdStatus" resultType="com.damon.dao.entity.Order">
+        SELECT * FROM t_order where member_id=#{memberId} and status=#{status} ORDER BY id DESC;
+    </select>
+    <!--查询所有订单信息-->
+    <select id="findAllOrder" resultType="com.damon.dao.entity.Order">
+        SELECT * FROM t_order;
+    </select>
+    <!--通过ID查询订单-->
+    <select id="findOrderByOrderId" resultType="com.damon.dao.entity.Order">
+        SELECT * FROM t_order where id=#{orderId};
+    </select>
+    <!--通过ID查询订单条目信息-->
+    <select id="findOrderItemById" resultType="com.damon.dao.entity.OrderItem">
+        SELECT * FROM t_order_item WHERE order_id=#{orderId};
+    </select>
+    <!--根据商品ID查询条目详细信息-->
+    <select id="findItemDetailByProductId" resultType="com.damon.dao.entity.ItemDetail">
+        SELECT name,price,point
+        FROM t_product
+        WHERE id=#{productId};
+    </select>
+    <!--根据商品ID查询订单条目详细信息-->
+    <select id="findOrderItemDetailById" resultType="com.damon.dao.entity.ItemDetail">
+        SELECT oi.*,p.name,p.price,p.point
+        FROM t_order_item oi, t_product p
+        WHERE oi.order_id=#{orderId} and oi.product_id=p.id;
+    </select>
+    <!--根据购物车条目ID查询条目详细信息-->
+    <select id="findItemDetailByCartItemId" resultType="com.damon.dao.entity.ItemDetail">
+        SELECT ci.*,p.name,p.price,p.point
+        FROM t_cart_item ci, t_product p
+        WHERE ci.id=#{cartItemId} and ci.product_id=p.id;
+    </select>
+</mapper>

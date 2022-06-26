@@ -3,7 +3,7 @@ package com.damon.dao.entity;
 /**
  * @author Lilin Yu
  * @Description 管理员角色类
- * @since 2019/08/01 10:10
+ * @since 2019/11/01 10:10
  */
 
 public class Role {

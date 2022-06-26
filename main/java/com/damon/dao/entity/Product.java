@@ -6,7 +6,7 @@ import java.math.BigInteger;
 /**
  * @author Lilin Yu
  * @Description 商品类
- * @since 2019/08/08 15:22
+ * @since 2019/11/08 15:22
  */
 public class Product {
     /**

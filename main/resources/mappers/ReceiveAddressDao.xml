@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.damon.dao.ReceiveAddressDao">
+    <!--插入收货地址信息-->
+    <insert id="insert" parameterType="com.damon.dao.entity.ReceiveAddress">
+        INSERT INTO t_receive_address(member_id,receiver_name,receiver_phone,province,city,detail,is_default)
+        VALUES(#{memberId},#{receiverName},#{receiverPhone},#{province},#{city},#{detail},#{isDefault});
+    </insert>
+    <!--根据会员ID查询收货地址信息-->
+    <select id="selectAllValidReceiveAddress" resultType="com.damon.dao.entity.ReceiveAddress">
+        SELECT * FROM t_receive_address WHERE member_id=#{memberId} and status=1;
+    </select>
+    <!--根据ID查询收货地址信息-->
+    <select id="selectValidReceiveAddressById" resultType="com.damon.dao.entity.ReceiveAddress">
+        SELECT * FROM t_receive_address WHERE id=#{id} and status=1;
+    </select>
+    <!--更新收货地址信息-->
+    <update id="update" parameterType="com.damon.dao.entity.ReceiveAddress">
+        UPDATE t_receive_address SET
+        receiver_name=#{receiverName},
+        receiver_phone=#{receiverPhone},
+        province=#{province},
+        city=#{city},
+        detail=#{detail},
+        is_default=#{isDefault},
+        status=#{status}
+        WHERE id=#{id};
+    </update>
+</mapper>

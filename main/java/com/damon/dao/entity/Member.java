@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /**
  * @author Lilin Yu
  * @Description 会员类
- * @since 2019/08/01 09:01
+ * @since 2019/11/01 09:01
  */
 
 public class Member {

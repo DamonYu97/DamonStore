@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /**
  * @author Lilin Yu
  * @Description 商品图片类
- * @since 2019/08/08 15:24
+ * @since 2019/11/08 15:24
  */
 public class ProductImage {
     /**

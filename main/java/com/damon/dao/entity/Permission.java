@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /**
  * @author Lilin Yu
  * @Description 管理员权限类
- * @since 2019/08/01 10:15
+ * @since 2019/11/01 10:15
  */
 
 public class Permission {

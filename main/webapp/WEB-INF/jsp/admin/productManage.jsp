@@ -278,7 +278,7 @@
                 {   "data": "product.id" },
                 {   "data": "mainImageUrl",
                     "render": function (data, type, row, meta) {
-                    var mainUrl = "http://47.106.104.159:8081/images/product/"+data;
+                    var mainUrl = "http://54.157.15.110:8080/images/product/"+data;
                     var img = "<a href=\"#originModal\" role='button' class=\"thumbnail\" data-toggle=\"modal\" data-filename="+data+">\n" +
                         "      <img height='50px' width='50px' src="+mainUrl+" alt="+mainUrl+">\n" +
                         "    </a>"
@@ -355,7 +355,7 @@
         var imagesRow = '';
         for (var i =0; i < d.imageUrls.length; i++) {
             var filename = d.imageUrls[i].url;
-            var thumbnailUrl = "http://47.106.104.159:8081/images/product/" + filename;
+            var thumbnailUrl = "http://54.157.15.110:8080/images/product/" + filename;
             imagesRow = imagesRow + "<div class='col-md-2'><a href=\"#originModal\" role='button' class=\"thumbnail\" data-toggle=\"modal\" data-filename="+filename+">\n" +
                 "      <img height='50px' width='50px' src="+thumbnailUrl+" alt="+thumbnailUrl+">\n" +
                 "    </a></div>";
@@ -393,7 +393,7 @@
 <script type="text/javascript">
     $('#originModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var imageUrl = "http://47.106.104.159:8081/images/product/"+button.data('filename');
+        var imageUrl = "http://54.157.15.110:8080/images/product/"+button.data('filename');
         console.log('image Url: '+imageUrl);
         var modal = $(this);
         $('#originImg').attr("src",imageUrl);

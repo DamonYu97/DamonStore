@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author Lilin Yu
- * @since 2019/08/08 17.26
+ * @since 2019/11/08 17.26
  */
 public interface ProductTypeDao {
     /**

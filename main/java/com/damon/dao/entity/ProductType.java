@@ -3,7 +3,7 @@ package com.damon.dao.entity;
 /**
  * @author Lilin Yu
  * @Description 商品类别类
- * @since 2019/08/08 15:25
+ * @since 2019/11/08 15:25
  */
 public class ProductType {
     /**

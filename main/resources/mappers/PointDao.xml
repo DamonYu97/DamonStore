@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.damon.dao.PointDao">
+    <!--插入积分纪录-->
+    <insert id="insert" parameterType="com.damon.dao.entity.Point">
+        INSERT INTO t_point(member_id,type,point,order_id)
+        VALUE (#{memberId},#{type},#{point},#{orderId});
+    </insert>
+    <!--查询所有积分信息-->
+    <select id="findAllPoint" resultType="com.damon.dao.entity.Point">
+        SELECT * FROM t_point ORDER BY id DESC;
+    </select>
+    <!--通过会员ID查询所有积分信息-->
+    <select id="findAllPointByMemberId" resultType="com.damon.dao.entity.Point">
+        SELECT * FROM t_point where member_id=#{memberId} ORDER BY id DESC;
+    </select>
+</mapper>
